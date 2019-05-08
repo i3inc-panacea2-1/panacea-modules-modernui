@@ -1,0 +1,128 @@
+﻿{
+    "plugin": "core",
+    "Actions": [
+
+        {
+            "ElementName": "backButton",
+            "Text": "Tap here to go to the previous page",
+            "Type": "Information",
+            "Handled": true
+        },
+        {
+            "ElementName": "homeButton",
+            "Text": "Tap here to go to main menu",
+            "Type": "Information",
+            "Handled": true
+        },
+        {
+            "ElementName": "btnLock",
+            "Text": "Tap here to turn off the screen or lock your terminal. If your terminal is off or locked, tap the screen to resume Panacea™. Note: Remember your sign in credentials, you will need them to sign back into your account if you lock your terminal",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnSignin",
+            "Text": "Tap here to sign in with your account and view your account details",
+            "Type": "Information",
+            "Handled": true
+        },
+        {
+            "ElementName": "btnTelephone",
+            "Text": "Tap here to call your nursing station",
+            "Type": "Information",
+            "Handled": true
+        },
+        {
+            "ElementName": "imgKeyboard",
+            "Text": "Tap here to toggle keyboard visibility. Generally, keyboard will pop up as soon as you touch a text field but you can also have more control of the keyboard with the help of this button",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "imgHelp",
+            "Text": "Tap here at any time for help using Panacea™ features",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnSettings",
+            "Text": "Tap here to explore additional functionality and settings!",
+            "Type": "Responsive",
+            "Event": "Click",
+            "Delay": 500
+        },
+        {
+            "ElementName": "BorderA",
+            "Text": "Drag the button left or right to increase or decrease the speaker volume",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "BorderB",
+            "Text": "Drag the button left or right to increase or decrease the microphone volume",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "BorderC",
+            "Text": "Drag the button left or right to increase or decrease the text size.\r\nNote: This changes ALL text size",
+            "Type": "Information"
+        },{
+            "ElementName": "BorderD",
+            "Text": "Pending notifications appear here",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "signinborder",
+            "Text": "Tap here to sign in to your account",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "AdditionaUserFunctions",
+            "Text": "Tap here to create a new account or purchase services",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "LanguageBox",
+            "Text": "Tap here to change Panacea™ language",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "ThemesBox",
+            "Text": "Tap here to select and change the theme for Panacea™",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnNurse",
+            "Text": "Tap here to call nurse",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnLock2",
+            "Text": "Tap this if you want to turn off screen or lock your terminal. Note: Remember your sign in credentials, you will need them to sign back into your account",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnRadio",
+            "Text": "Tap here for a shortcut to Radio",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnFavorites",
+            "Text": "Tap here to view items you have added to Favorites",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnWeb",
+            "Text": "Tap here for a shortcut to Web",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "btnTelevision",
+            "Text": "Tap here for a shortcut to Television",
+            "Type": "Information"
+        },
+        {
+            "ElementName": "close",
+            "Text": "Tap here to close this panel",
+            "Type": "Responsive",
+            "Event": "Click",
+            "Highlight" :  "Glow"
+        }
+    ]
+}

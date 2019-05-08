@@ -1,0 +1,28 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSize-Normal}" />
+    </Style>
+
+
+    <Style TargetType="FlowDocument">
+        <Style.Setters>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="PagePadding" Value="3" />
+            <Setter Property="Background" Value="Transparent" />
+
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="FlowDocumentScrollViewer">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
+
+
+
+</ResourceDictionary>

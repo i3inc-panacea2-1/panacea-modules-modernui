@@ -1,0 +1,126 @@
+﻿<controls:OverlayWindow
+    x:Class="Panacea.Modules.ModernUi.Controls.ModalPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Panacea.Controls;assembly=Panacea.Controls"
+    xmlns:controls1="clr-namespace:Panacea.Modules.ModernUi.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="500"
+    d:DesignWidth="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    FontSize="{DynamicResource FontSize-Normal}"
+    Loaded="ModalPopup_OnLoaded"
+    PreviewKeyDown="ModalPopup_OnPreviewKeyDown"
+    ShowInTaskbar="False"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <controls:OverlayWindow.Resources>
+        <controls1:ShadowDepthConverter x:Key="Converter" />
+        <controls1:NotNullAndFalseToVisibilityConverter x:Key="VisibilityConverter" />
+    </controls:OverlayWindow.Resources>
+    <Grid>
+        <Image Name="Img" />
+        <Grid Background="#55000000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Border
+                Name="contentArea"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                SnapsToDevicePixels="True">
+
+                <Border>
+                    <Grid>
+                        <Border
+                            Margin="5"
+                            Background="White"
+                            CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Opacity=".3"
+                                    ShadowDepth="0"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <Border.OpacityMask>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Border
+                                            Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                                            Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"
+                                            Background="Black"
+                                            CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource AncestorType=Border}}"
+                                            SnapsToDevicePixels="True" />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Border.OpacityMask>
+                            <Grid
+                                Height="5"
+                                Margin="0"
+                                VerticalAlignment="Top"
+                                Background="{Binding PopupColor}"
+                                ClipToBounds="True" />
+                        </Border>
+                        <Grid Margin="5,10,5,5">
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.Visibility>
+                                    <MultiBinding Converter="{StaticResource VisibilityConverter}" Mode="OneWay">
+                                        <Binding Path="Closable" />
+                                        <Binding Path="Title" />
+                                    </MultiBinding>
+                                </Grid.Visibility>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="10,0,10,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="{DynamicResource FontSize-Large}"
+                                    Text="{Binding Title}"
+                                    TextWrapping="Wrap" />
+                                <Button
+                                    Name="xButton"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Click="Button_Click"
+                                    FontSize="{DynamicResource FontSize-Normal}"
+                                    Background="{Binding PopupColor}"
+                                    Style="{DynamicResource PrimaryButton}">
+                                    Close
+                                </Button>
+                            </Grid>
+                            <Border
+                                Grid.Row="2"
+                                MinWidth="200"
+                                MinHeight="80"
+                                BorderThickness="1">
+                                <ContentPresenter Margin="2" Content="{Binding PopupContent}" />
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+
+                </Border>
+            </Border>
+        </Grid>
+    </Grid>
+</controls:OverlayWindow>

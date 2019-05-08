@@ -1,0 +1,119 @@
+﻿<thememanagers:NavigatorBase
+    x:Class="Panacea.Modules.ModernUi.ModernThemeManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Panacea.Modules.ModernUi.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:multilinguality="clr-namespace:Panacea.Multilinguality;assembly=Panacea.Multilinguality"
+    xmlns:pcontrols="clr-namespace:Panacea.Controls;assembly=Panacea.Controls"
+    xmlns:self="clr-namespace:Panacea.Modules.ModernUi"
+    xmlns:thememanagers="clr-namespace:Panacea.Modules.ModernUi"
+    xmlns:uimanager="clr-namespace:Panacea.Modularity.UiManager;assembly=Panacea.Modularity.UiManager"
+    d:DesignHeight="738"
+    d:DesignWidth="1366"
+    pcontrols:Material.RelativeFontSize="14"
+    Loaded="ThemeManager_OnLoaded"
+    Unloaded="ThemeManager_OnUnloaded"
+    mc:Ignorable="d">
+    <thememanagers:NavigatorBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource {x:Type ScrollBar}}" TargetType="pcontrols:BindableScrollBar" />
+            <Style TargetType="pcontrols:ImageButton">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="pcontrols:RippleEffectDecorator.HighlightBackground" Value="#66ffffff" />
+            </Style>
+        </ResourceDictionary>
+    </thememanagers:NavigatorBase.Resources>
+    <Grid>
+        <Grid Name="MainGrid" Background="{DynamicResource MainWindow.Background}">
+            <Grid.RowDefinitions>
+
+                <RowDefinition Name="rightBar" Height="8*" />
+                <RowDefinition Name="leftBar" Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Background="{DynamicResource MainWindow.NavigationBar.Background}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="52*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <UniformGrid
+                        Name="Buttons"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Rows="1"
+                        TextElement.FontSize="{DynamicResource FontSize-Xx-Small}">
+                        <UniformGrid.Resources>
+                            <Style TargetType="pcontrols:ImageButton">
+                                <Style.Setters>
+                                    <Setter Property="Padding" Value="10,0" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </Style.Setters>
+                            </Style>
+                        </UniformGrid.Resources>
+                        <pcontrols:ImageButton
+                            x:Name="backButton"
+                            pcontrols:Material.Icon="arrow_back"
+                            Click="Button_Click"
+                            Text="{multilinguality:Translate 'Back',
+                                                             'core'}"
+                            TextVisibility="Visible" />
+                        <pcontrols:ImageButton
+                            x:Name="homeButton"
+                            pcontrols:Material.Icon="apps"
+                            Click="homeButton_Click"
+                            Text="{multilinguality:Translate 'Home',
+                                                             'core'}"
+                            TextVisibility="Visible" />
+                    </UniformGrid>
+                </Grid>
+                <controls:Clock
+                    x:Name="clock"
+                    Grid.Column="1"
+                    Margin="10"
+                    VerticalAlignment="Center" />
+            </Grid>
+            <Grid Name="rightBarGrid" Grid.Column="1">
+                <pcontrols:CacheImage
+                    Name="background"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ImageUrl="{DynamicResource MainWindow.BackgroundImage}"
+                    Stretch="UniformToFill" />
+                <Grid Name="mainGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Name="keyboardRow" Height="0" />
+                    </Grid.RowDefinitions>
+                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentPage}" />
+
+                    <Grid
+                        Name="normalKeyboardGrid"
+                        Grid.Row="1"
+                        Background="#ff111111" />
+                    <Grid
+                        Name="numericKeyboardGrid"
+                        Grid.Row="1"
+                        Background="#ff111111" />
+                    <Grid
+                        Name="dateKeyboardGrid"
+                        Grid.Row="1"
+                        Background="#ff111111" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Name="HelperGrid" />
+    </Grid>
+</thememanagers:NavigatorBase>

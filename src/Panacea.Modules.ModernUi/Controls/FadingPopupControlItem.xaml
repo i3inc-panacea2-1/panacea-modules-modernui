@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="Panacea.Modules.ModernUi.Controls.FadingPopupControlItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:multilinguality="clr-namespace:Panacea.Multilinguality;assembly=Panacea.Multilinguality"
+    xmlns:pcontrols="clr-namespace:Panacea.Controls;assembly=Panacea.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid Margin="15,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Border MouseDown="Border_MouseDown">
+            <TextBlock
+                Name="captiontxt"
+                Grid.Column="0"
+                Margin="3"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Foreground="White"
+                TextWrapping="Wrap" />
+        </Border>
+        <Border Grid.Column="1" MouseDown="Border_MouseDown">
+            <TextBlock
+                Name="timetxt"
+                Margin="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                pcontrols:Material.RelativeFontSizeRatio=".8"
+                Foreground="White"
+                TextWrapping="Wrap" />
+        </Border>
+        <Button
+            Grid.Column="2"
+            Margin="10,5,5,5"
+            VerticalAlignment="Center"
+            Background="{DynamicResource ColorInformation}"
+            Click="Button_Click_1"
+            Content="{multilinguality:Translate 'Dismiss',
+                                                'core'}"
+            pcontrols:Material.RelativeFontSizeRatio=".6"
+            Style="{DynamicResource PrimaryButton}" />
+    </Grid>
+
+</UserControl>
