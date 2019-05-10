@@ -31,11 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Panacea.Controls, Version=0.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Controls.0.0.4-beta20190506-1414-gb830ab2\lib\net462\Panacea.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Panacea.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Panacea.Core.1.1.0\lib\net462\Panacea.Core.dll</HintPath>
+    <Reference Include="Panacea.Core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panacea.Core.2.1.0\lib\net462\Panacea.Core.dll</HintPath>
     </Reference>
     <Reference Include="Panacea.Modularity, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Modularity.0.0.2\lib\net462\Panacea.Modularity.dll</HintPath>
@@ -43,8 +46,8 @@
     <Reference Include="Panacea.Modularity.UiManager, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Modularity.UiManager.5.0.0\lib\net462\Panacea.Modularity.UiManager.dll</HintPath>
     </Reference>
-    <Reference Include="Panacea.Multilinguality, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Panacea.Multilinguality.0.1.1\lib\net462\Panacea.Multilinguality.dll</HintPath>
+    <Reference Include="Panacea.Multilinguality, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panacea.Multilinguality.0.1.2\lib\net462\Panacea.Multilinguality.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -52,7 +55,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,6 +74,7 @@
     <Compile Include="Converters\ParentContainerUnitConverter.cs" />
     <Compile Include="Controls\ModernTile.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
+    <Compile Include="CustomBehavior.cs" />
     <Compile Include="Models\AppearencePlugin.cs" />
     <Compile Include="NavigatorBase.cs" />
     <Compile Include="Controls\PanaceaLitePopup.xaml.cs">
@@ -101,6 +108,8 @@
     <Compile Include="ModernThemeManager.xaml.cs">
       <DependentUpon>ModernThemeManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\HttpThemeSettingsService.cs" />
+    <Compile Include="Services\IThemeSettingsService.cs" />
     <Compile Include="ViewModels\CharmsBarViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

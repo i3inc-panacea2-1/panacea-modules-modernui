@@ -1,4 +1,6 @@
-﻿using Panacea.Modularity.UiManager;
+﻿using Panacea.Core;
+using Panacea.Modularity.UiManager;
+using Panacea.Modules.ModernUi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,15 @@ namespace Panacea.Modules.ModernUi
 {
     public class ModernUiManagerPlugin : IUiManagerPlugin
     {
+        ModernThemeManager _manager;
+        IThemeSettingsService _themesService;
+
+        public ModernUiManagerPlugin(PanaceaServices core)
+        {
+            _manager = new ModernThemeManager(core);
+            _themesService = new HttpThemeSettingsService(core.HttpClient);
+        }
+
         public Task BeginInit()
         {
             return Task.CompletedTask;
@@ -20,14 +31,17 @@ namespace Panacea.Modules.ModernUi
            
         }
 
-        public Task EndInit()
+        public async Task EndInit()
         {
-            return Task.CompletedTask;
+            var settings = await _themesService.GetThemeSettingsAsync();
+            var window = new Window();
+            window.Content = _manager;
+            window.Show();
         }
 
         public IUiManager GetUiManager()
         {
-            throw new NotImplementedException();
+            return _manager;
         }
 
         public Task Shutdown()
