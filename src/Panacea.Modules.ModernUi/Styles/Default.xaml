@@ -4,7 +4,6 @@
 
     <Style TargetType="{x:Type Window}">
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
-        <Setter Property="FontSize" Value="{DynamicResource FontSize-Normal}" />
     </Style>
 
 

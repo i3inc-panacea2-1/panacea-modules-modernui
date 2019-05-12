@@ -497,7 +497,7 @@ namespace Panacea.Modules.ModernUi
 
         public void RemoveNavigationBarControl(FrameworkElement c)
         {
-           
+            Buttons.Children.Remove(c);
         }
 
         public void AddMainPageControl(FrameworkElement c)
@@ -512,7 +512,7 @@ namespace Panacea.Modules.ModernUi
 
         public void AddNavigationBarControl(FrameworkElement c)
         {
-            throw new NotImplementedException();
+            Buttons.Children.Add(c);
         }
 
         public void AddSettingsControl(FrameworkElement c)

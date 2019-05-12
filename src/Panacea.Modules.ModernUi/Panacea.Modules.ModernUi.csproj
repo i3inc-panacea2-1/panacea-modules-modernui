@@ -34,8 +34,8 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
-    <Reference Include="Panacea.Controls, Version=0.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Panacea.Controls.0.0.4-beta20190506-1414-gb830ab2\lib\net462\Panacea.Controls.dll</HintPath>
+    <Reference Include="Panacea.Controls, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panacea.Controls.0.0.6-beta20190512-1849-ga15f4a4\lib\net462\Panacea.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Panacea.Core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Core.2.1.0\lib\net462\Panacea.Core.dll</HintPath>
@@ -83,12 +83,6 @@
     <Compile Include="ModernUiManagerPlugin.cs" />
     <Compile Include="Controls\CharmsBar.xaml.cs">
       <DependentUpon>CharmsBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Clock.xaml.cs">
-      <DependentUpon>Clock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ClockFull.xaml.cs">
-      <DependentUpon>ClockFull.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FadingPopupControlItem.xaml.cs">
       <DependentUpon>FadingPopupControlItem.xaml</DependentUpon>
@@ -154,14 +148,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CharmsBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Clock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ClockFull.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

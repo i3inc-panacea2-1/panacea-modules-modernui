@@ -30,7 +30,7 @@
             </Style>
         </ResourceDictionary>
     </thememanagers:NavigatorBase.Resources>
-    <Grid>
+    <Grid >
         <Grid Name="MainGrid" Background="{DynamicResource MainWindow.Background}">
             <Grid.RowDefinitions>
 
@@ -39,37 +39,28 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1" Background="{DynamicResource MainWindow.NavigationBar.Background}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="52*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <UniformGrid
+   
+                    <DockPanel
                         Name="Buttons"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        Rows="1"
-                        TextElement.FontSize="{DynamicResource FontSize-Xx-Small}">
-                        <UniformGrid.Resources>
+                        LastChildFill="False">
+                        <DockPanel.Resources>
                             <Style TargetType="pcontrols:ImageButton">
                                 <Style.Setters>
                                     <Setter Property="Padding" Value="10,0" />
                                     <Setter Property="Foreground" Value="White" />
                                 </Style.Setters>
                             </Style>
-                        </UniformGrid.Resources>
+                        </DockPanel.Resources>
                         <pcontrols:ImageButton
                             x:Name="backButton"
                             pcontrols:Material.Icon="arrow_back"
                             Click="Button_Click"
                             Text="{multilinguality:Translate 'Back',
                                                              'core'}"
-                            TextVisibility="Visible" />
+                            TextVisibility="Visible"/>
                         <pcontrols:ImageButton
                             x:Name="homeButton"
                             pcontrols:Material.Icon="apps"
@@ -77,13 +68,8 @@
                             Text="{multilinguality:Translate 'Home',
                                                              'core'}"
                             TextVisibility="Visible" />
-                    </UniformGrid>
-                </Grid>
-                <controls:Clock
-                    x:Name="clock"
-                    Grid.Column="1"
-                    Margin="10"
-                    VerticalAlignment="Center" />
+                    </DockPanel>
+       
             </Grid>
             <Grid Name="rightBarGrid" Grid.Column="1">
                 <pcontrols:CacheImage

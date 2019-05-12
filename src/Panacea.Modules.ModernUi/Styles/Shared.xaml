@@ -23,7 +23,6 @@
     <FontWeight x:Key="MainPage.TileGroup.Header.FontWeight">Light</FontWeight>
 
     <Style TargetType="{x:Type Control}">
-        <Setter Property="FontWeight" Value="Light" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     </Style>
 </ResourceDictionary>
