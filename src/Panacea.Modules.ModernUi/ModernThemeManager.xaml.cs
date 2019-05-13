@@ -512,7 +512,18 @@ namespace Panacea.Modules.ModernUi
 
         public void AddNavigationBarControl(FrameworkElement c)
         {
-            Buttons.Children.Add(c);
+            var list = new List<FrameworkElement>();
+            foreach (FrameworkElement control in Buttons.Children)
+            {
+                list.Add(control);
+            }
+            Buttons.Children.Clear();
+            list.Add(c);
+            list = list.OrderBy(e => { return e.GetValue(DockPanel.ZIndexProperty); }).ToList();
+            foreach (var item in list)
+            {
+                Buttons.Children.Add(item);
+            }
         }
 
         public void AddSettingsControl(FrameworkElement c)
