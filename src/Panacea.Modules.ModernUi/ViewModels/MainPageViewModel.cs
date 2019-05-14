@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using Panacea.Controls;
 using Panacea.Core;
+using Panacea.Core.Mvvm;
 using Panacea.Modularity.UiManager;
 using Panacea.Modules.ModernUi.Models;
 using Panacea.Multilinguality;
@@ -16,7 +17,8 @@ using ThemeManagers.Controls;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {
-    public class MainPageViewModel : PropertyChangedBase
+    [View(typeof(MainPage))]
+    public class MainPageViewModel : ViewModelBase
     {
 
         private readonly Translator _translator = new Translator("core");

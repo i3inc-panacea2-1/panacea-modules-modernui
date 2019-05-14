@@ -1,4 +1,5 @@
-﻿using Panacea.Modularity.UiManager;
+﻿using Panacea.Core.Mvvm;
+using Panacea.Modularity.UiManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,10 @@ namespace Panacea.Modules.ModernUi
 
         public IReadOnlyList<string> NavigationHistory => _navigationHistory.AsReadOnly();
 
-        public virtual FrameworkElement CurrentPage
+        public  ViewModelBase CurrentPage
         {
-            get { return (FrameworkElement)GetValue(CurrentPageProperty); }
-            set { SetValue(CurrentPageProperty, value); }
+            get;set;
         }
-
-        // Using a DependencyProperty as the backing store for CurrentPage.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentPageProperty =
-            DependencyProperty.Register("CurrentPage", typeof(FrameworkElement), typeof(NavigatorBase), new FrameworkPropertyMetadata(null, OnCurrentPageChanged));
 
         private static void OnCurrentPageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -40,9 +36,9 @@ namespace Panacea.Modules.ModernUi
         public event EventHandler AfterNavigate;
         public event EventHandler<BeforeNavigateEventArgs> BeforeNavigate;
 
-        public IReadOnlyList<FrameworkElement> History => _history.AsReadOnly();
+        public IReadOnlyList<ViewModelBase> History => _history.AsReadOnly();
 
-        protected List<FrameworkElement> _history = new List<FrameworkElement>();
+        protected List<ViewModelBase> _history = new List<ViewModelBase>();
 
         public virtual bool IsNavigationDisabled { get; set; }
 
@@ -68,7 +64,7 @@ namespace Panacea.Modules.ModernUi
             Navigate(_history.Last(), false);
         }
 
-        public virtual void Navigate(FrameworkElement page, bool cache = true)
+        public virtual void Navigate(ViewModelBase page, bool cache = true)
         {
             if (page == null) return;
             var args = new BeforeNavigateEventArgs();

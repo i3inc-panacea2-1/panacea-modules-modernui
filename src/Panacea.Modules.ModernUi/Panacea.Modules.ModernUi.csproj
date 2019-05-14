@@ -37,14 +37,14 @@
     <Reference Include="Panacea.Controls, Version=0.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Controls.0.0.11-beta20190513-1237-gdfddf1a\lib\net462\Panacea.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Panacea.Core, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Panacea.Core.2.2.0\lib\net462\Panacea.Core.dll</HintPath>
+    <Reference Include="Panacea.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panacea.Core.3.0.0\lib\net462\Panacea.Core.dll</HintPath>
     </Reference>
     <Reference Include="Panacea.Modularity, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Modularity.0.0.2\lib\net462\Panacea.Modularity.dll</HintPath>
     </Reference>
-    <Reference Include="Panacea.Modularity.UiManager, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Panacea.Modularity.UiManager.5.0.0\lib\net462\Panacea.Modularity.UiManager.dll</HintPath>
+    <Reference Include="Panacea.Modularity.UiManager, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panacea.Modularity.UiManager.6.0.1\lib\net462\Panacea.Modularity.UiManager.dll</HintPath>
     </Reference>
     <Reference Include="Panacea.Multilinguality, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panacea.Multilinguality.0.1.2\lib\net462\Panacea.Multilinguality.dll</HintPath>

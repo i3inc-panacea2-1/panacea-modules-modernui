@@ -11,6 +11,8 @@ using Panacea.Controls;
 using Panacea.Modularity.UiManager;
 using Panacea.Core;
 using Panacea.Modules.ModernUi.Models;
+using Panacea.Core.Mvvm;
+using Panacea.Modules.ModernUi.ViewModels;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -19,6 +21,18 @@ namespace Panacea.Modules.ModernUi
     /// </summary>
     public partial class ModernThemeManager : NavigatorBase, IUiManager
     {
+
+
+        public FrameworkElement CurrentView
+        {
+            get { return (FrameworkElement)GetValue(CurrentViewProperty); }
+            set { SetValue(CurrentViewProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentView.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentViewProperty =
+            DependencyProperty.Register("CurrentView", typeof(FrameworkElement), typeof(ModernThemeManager), new PropertyMetadata(null));
+
 
         private GridLength _originalNavigationBarSize;
         const double NavigationBarSize = .9;
@@ -44,7 +58,7 @@ namespace Panacea.Modules.ModernUi
             }
         }
 
-        private MainPage _mainPage;
+        private MainPageViewModel _mainPage;
         IPopup _charmbar;
 
         public ModernThemeManager(PanaceaServices core)
@@ -168,8 +182,10 @@ namespace Panacea.Modules.ModernUi
             ShowOrHideKeyboardButton();
         }
 
-        public override void Navigate(FrameworkElement page, bool cache = true)
+        public override void Navigate(ViewModelBase page, bool cache = true)
         {
+            var view = page.GetView();
+            CurrentView = view;
             base.Navigate(page, cache);
             ShowOrHideBackButton();
             ShowOrHideKeyboardButton();
@@ -249,7 +265,7 @@ namespace Panacea.Modules.ModernUi
         {
             leftBar.Height =
                             new GridLength(NavigationBarSize, GridUnitType.Star);
-            _mainPage = new MainPage();
+            _mainPage = new MainPageViewModel(_core);
 
             var window = Window.GetWindow(this);
             popup.Owner = window;
