@@ -83,7 +83,7 @@
                         <RowDefinition />
                         <RowDefinition Name="keyboardRow" Height="0" />
                     </Grid.RowDefinitions>
-                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentPage}" />
+                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentView}" />
 
                     <Grid
                         Name="normalKeyboardGrid"
