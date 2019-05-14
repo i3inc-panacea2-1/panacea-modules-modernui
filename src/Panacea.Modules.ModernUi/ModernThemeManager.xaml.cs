@@ -59,12 +59,12 @@ namespace Panacea.Modules.ModernUi
         }
 
         private MainPageViewModel _mainPage;
-        IPopup _charmbar;
 
         public ModernThemeManager(PanaceaServices core)
         {
-            InitializeComponent();
             _core = core;
+            InitializeComponent();
+            
             popup = new NotificationsWindow();
             _translator = new Translator("core");
         }
@@ -81,14 +81,14 @@ namespace Panacea.Modules.ModernUi
             {
                 HidePopup(ch);
             };
-            _charmbar = ShowPopup(ch);
+            //_charmbar = ShowPopup(ch);
 
         }
 
         public void HideCharmsBar(bool animate = true)
         {
-                if(_charmbar != null)
-            HidePopup(_charmbar);
+           //     if(_charmbar != null)
+           // HidePopup(_charmbar);
         }
         public void EnableFullscreen()
         {
@@ -105,26 +105,24 @@ namespace Panacea.Modules.ModernUi
 
         #region notification methods
 
-        public FrameworkElement Notify(string message, Action del)
+        public void Notify(string message, Action del)
         {
             var c = popup.Add(message, del);
-            if (IsNavigationDisabled) return c;
+            if (IsNavigationDisabled) return;
             ShowNotifications();
-
-            return c;
         }
 
-        public void Notify(FrameworkElement c)
+        public void Notify(ViewModelBase c)
         {
             if (IsNavigationDisabled) return;
-            popup.Add(c, true);
+            popup.Add(c.View, true);
             ShowNotifications();
 
         }
 
-        public void Refrain(FrameworkElement c)
+        public void Refrain(ViewModelBase c)
         {
-            RemoveNotification(c);
+            RemoveNotification(c.View);
         }
 
         private void AddNotification(Control c)
@@ -184,7 +182,7 @@ namespace Panacea.Modules.ModernUi
 
         public override void Navigate(ViewModelBase page, bool cache = true)
         {
-            var view = page.GetView();
+            var view = page.View;
             CurrentView = view;
             base.Navigate(page, cache);
             ShowOrHideBackButton();
@@ -352,17 +350,17 @@ namespace Panacea.Modules.ModernUi
 
         private Dictionary<object, object> popedElements = new Dictionary<object, object>();
 
-        public IPopup ShowPopup(
-            FrameworkElement element,
+        public void ShowPopup(
+            ViewModelBase element,
             string title = null,
             PopupType popupType = PopupType.None,
             bool closable = true,
             bool trasnparent = true)
         {
 
-            if (element.Parent != null)
+            if (element.View.Parent != null)
             {
-                ((Border) element.Parent).Child = null; //.Clear();
+                ((Border) element.View.Parent).Child = null; //.Clear();
             }
             /*
             var modal = trasnparent ? new ModalPopup(HostWindow as Window) : new ModalPopup(HostWindow as Window, Utils.CaptureScreen(this));
@@ -379,11 +377,10 @@ namespace Panacea.Modules.ModernUi
             modal.Show();
             return modal;
             */
-                return null;
         }
 
       
-        public void HidePopup(IPopup element)
+        public void HidePopup(ViewModelBase element)
         {
             int i = popedElements.Count - 1;
             while (i >= 0)
@@ -392,7 +389,7 @@ namespace Panacea.Modules.ModernUi
                 i--;
             }
             //element.Close();
-            element.Close(); //element.PopupContent = null;
+            //element.Close(); //element.PopupContent = null;
 
            
         }
@@ -401,7 +398,7 @@ namespace Panacea.Modules.ModernUi
         {
             if (popedElements.ContainsKey(element))
             {
-                HidePopup((IPopup)popedElements[element]);
+                //HidePopup((IPopup)popedElements[element]);
             }
         }
 
@@ -410,7 +407,7 @@ namespace Panacea.Modules.ModernUi
             var keys = popedElements.Keys.ToList();
             foreach (var key in keys)
             {
-                HidePopup((IPopup)popedElements[key]);
+                //HidePopup((IPopup)popedElements[key]);
             }
         }
 
@@ -511,22 +508,22 @@ namespace Panacea.Modules.ModernUi
             
         }
 
-        public void RemoveNavigationBarControl(FrameworkElement c)
+        public void RemoveNavigationBarControl(ViewModelBase c)
         {
-            Buttons.Children.Remove(c);
+            Buttons.Children.Remove(c.View);
         }
 
-        public void AddMainPageControl(FrameworkElement c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveMainPageControl(FrameworkElement c)
+        public void AddMainPageControl(ViewModelBase c)
         {
             throw new NotImplementedException();
         }
 
-        public void AddNavigationBarControl(FrameworkElement c)
+        public void RemoveMainPageControl(ViewModelBase c)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddNavigationBarControl(ViewModelBase c)
         {
             var list = new List<FrameworkElement>();
             foreach (FrameworkElement control in Buttons.Children)
@@ -534,20 +531,20 @@ namespace Panacea.Modules.ModernUi
                 list.Add(control);
             }
             Buttons.Children.Clear();
-            list.Add(c);
-            list = list.OrderBy(e => { return e.GetValue(DockPanel.ZIndexProperty); }).ToList();
+            list.Add(c.View);
+            list = list.OrderByDescending(e => { return e.GetValue(Panel.ZIndexProperty); }).ToList();
             foreach (var item in list)
             {
                 Buttons.Children.Add(item);
             }
         }
 
-        public void AddSettingsControl(FrameworkElement c)
+        public void AddSettingsControl(ViewModelBase c)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveSettingsControl(FrameworkElement c)
+        public void RemoveSettingsControl(ViewModelBase c)
         {
             throw new NotImplementedException();
         }

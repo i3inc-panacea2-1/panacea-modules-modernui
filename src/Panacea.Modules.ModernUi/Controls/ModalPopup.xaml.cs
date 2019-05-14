@@ -23,7 +23,7 @@ namespace Panacea.Modules.ModernUi.Controls
     /// <summary>
     /// Interaction logic for ModalPopup.xaml
     /// </summary>
-    public partial class ModalPopup : OverlayWindow, IPopup
+    public partial class ModalPopup : OverlayWindow
     {
         public ModalPopup(Window window):base(window)
         {

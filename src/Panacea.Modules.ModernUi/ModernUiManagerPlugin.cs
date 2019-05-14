@@ -33,7 +33,7 @@ namespace Panacea.Modules.ModernUi
 
         public async Task EndInit()
         {
-            var settings = await _themesService.GetThemeSettingsAsync();
+            //var settings = await _themesService.GetThemeSettingsAsync();
             var window = new Window();
             window.Content = _manager;
             window.Show();
