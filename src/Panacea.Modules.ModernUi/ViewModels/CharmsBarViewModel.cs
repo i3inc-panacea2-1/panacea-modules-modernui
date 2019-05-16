@@ -1,10 +1,5 @@
 ﻿using Panacea.Core;
-using Panacea.Multilinguality;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Panacea.Mvvm;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {

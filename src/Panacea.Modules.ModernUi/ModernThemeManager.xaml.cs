@@ -6,12 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using Panacea.Multilinguality;
 using Panacea.Modules.ModernUi.Controls;
-using ThemeManagers.Controls;
 using Panacea.Controls;
 using Panacea.Modularity.UiManager;
 using Panacea.Core;
 using Panacea.Modules.ModernUi.Models;
-using Panacea.Core.Mvvm;
+using Panacea.Mvvm;
 using Panacea.Modules.ModernUi.ViewModels;
 
 namespace Panacea.Modules.ModernUi

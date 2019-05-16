@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
 using Panacea.Controls;
 using Panacea.Core;
-using Panacea.Core.Mvvm;
+using Panacea.Mvvm;
 using Panacea.Modularity.UiManager;
 using Panacea.Modules.ModernUi.Models;
 using Panacea.Multilinguality;
-using ThemeManagers.Controls;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {
