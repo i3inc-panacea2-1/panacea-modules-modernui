@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="ActualSizePropertyProxy.cs" />
     <Compile Include="Controls\ModernTileDefaultContent.cs" />
+    <Compile Include="Controls\UiBlockWindow.xaml.cs">
+      <DependentUpon>UiBlockWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ParentContainerUnitConverter.cs" />
     <Compile Include="Controls\ModernTile.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\UiBlockWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -175,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Panacea.Controls">
-      <Version>0.0.15-beta20190517-1458-g392f1b4</Version>
+      <Version>0.0.18-beta20190517-1716-g88e31fd</Version>
     </PackageReference>
     <PackageReference Include="Panacea.Modularity.UiManager">
       <Version>8.0.0</Version>

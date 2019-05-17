@@ -262,12 +262,13 @@ namespace Panacea.Modules.ModernUi
 
         private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
         {
+
             leftBar.Height =
                             new GridLength(NavigationBarSize, GridUnitType.Star);
            
             var window = Window.GetWindow(this);
             popup.Owner = window;
-
+            _doingWork = new UiBlockWindow(window);
            
             if (Application.Current.Resources.Contains("NavigationBarSize"))
             {
@@ -460,14 +461,57 @@ namespace Panacea.Modules.ModernUi
             throw new NotImplementedException();
         }
 
-        public Task DoWhileBusy(Func<Task> action)
+        private UiBlockWindow _doingWork;
+
+        private int _runningTasks;
+        public async Task DoWhileBusy(Func<Task> action)
         {
-            throw new NotImplementedException();
+            _runningTasks++;
+            SetTaskLockVisibility();
+            try
+            {
+                await action();
+            }
+            finally
+            {
+                _runningTasks--;
+                SetTaskLockVisibility();
+            }
         }
 
-        public Task<TResult> DoWhileBusy<TResult>(Func<Task<TResult>> action)
+        public async Task<TResult> DoWhileBusy<TResult>(Func<Task<TResult>> action)
         {
-            throw new NotImplementedException();
+            _runningTasks++;
+            SetTaskLockVisibility();
+            try
+            {
+                return await action();
+            }
+            finally
+            {
+                _runningTasks--;
+                SetTaskLockVisibility();
+            }
+        }
+
+        private void SetTaskLockVisibility()
+        {
+            if (_doingWork == null) return;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                lock (this)
+                {
+                    if (_runningTasks == 0)
+                    {
+                        _doingWork.Hide();
+                    }
+                    else
+                    {
+                        _doingWork.Show();
+
+                    }
+                }
+            });
         }
 
         public void Restart(string message, Exception exception = null)
