@@ -71,7 +71,7 @@ namespace Panacea.Modules.ModernUi.Controls
             switch (plugin.Decoration)
             {
                 case "free":
-                    tile.Decoration = "pack://application:,,,/PanaceaLib;component/resources/images/free.png";
+                    tile.Decoration = "pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/free.png";
                     break;
                 case "paid":
                     tile.Decoration = "pack://application:,,,/PanaceaLib;component/resources/images/dollar103.png";

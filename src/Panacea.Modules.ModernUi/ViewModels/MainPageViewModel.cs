@@ -8,13 +8,13 @@ using Panacea.Mvvm;
 using Panacea.Modularity.UiManager;
 using Panacea.Modules.ModernUi.Models;
 using Panacea.Multilinguality;
+using System.Windows;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {
     [View(typeof(MainPage))]
     public class MainPageViewModel : ViewModelBase
     {
-
         private readonly Translator _translator = new Translator("core");
         private readonly PanaceaServices _core;
         private Theme _theme;
@@ -29,9 +29,11 @@ namespace Panacea.Modules.ModernUi.ViewModels
             }
         }
 
-        public MainPageViewModel(PanaceaServices core)
+        public MainPageViewModel(PanaceaServices core, Theme theme)
         {
             _core = core;
+            _theme = theme;
+            _core.PluginLoader.PluginLoaded += PluginLoader_PluginLoaded;
             foreach (var plugin in core.PluginLoader.LoadedPlugins.Where(kv => kv.Value is ICallablePlugin).Select(kv => kv.Key))
             {
                 try
@@ -56,6 +58,22 @@ namespace Panacea.Modules.ModernUi.ViewModels
             {
 
             });
+        }
+
+        public override void Activate()
+        {
+            Theme.Groups
+                .SelectMany(g => g.AppearancePlugins)
+                .ToList()
+                .ForEach(ap => ap.Visibility = ap.ShowAlways || _core.PluginLoader.LoadedPlugins.ContainsKey(ap.Name ?? "") ? Visibility.Visible : Visibility.Collapsed);
+        }
+
+        private void PluginLoader_PluginLoaded(object sender, Modularity.IPlugin e)
+        {
+            Theme.Groups
+                .SelectMany(g => g.AppearancePlugins)
+                .ToList()
+                .ForEach(ap => ap.Visibility = ap.ShowAlways || _core.PluginLoader.LoadedPlugins.ContainsKey(ap.Name ?? "") ? Visibility.Visible : Visibility.Collapsed);
         }
 
         public ICommand MainAccountButtonClickCommand { get; protected set; }

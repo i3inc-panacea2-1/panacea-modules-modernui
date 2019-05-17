@@ -13,17 +13,19 @@ namespace Panacea.Modules.ModernUi
     public class ModernUiManagerPlugin : IUiManagerPlugin
     {
         ModernThemeManager _manager;
+        private readonly PanaceaServices _core;
         IThemeSettingsService _themesService;
 
         public ModernUiManagerPlugin(PanaceaServices core)
         {
-            _manager = new ModernThemeManager(core);
+            _core = core;
             _themesService = new HttpThemeSettingsService(core.HttpClient);
         }
 
-        public Task BeginInit()
+        public async Task BeginInit()
         {
-            return Task.CompletedTask;
+            var settings = await _themesService.GetThemeSettingsAsync();
+            _manager = new ModernThemeManager(_core, settings.Themes[0]);
         }
 
         public void Dispose()
@@ -31,12 +33,12 @@ namespace Panacea.Modules.ModernUi
            
         }
 
-        public async Task EndInit()
+        public Task EndInit()
         {
-            //var settings = await _themesService.GetThemeSettingsAsync();
             var window = new Window();
             window.Content = _manager;
             window.Show();
+            return Task.CompletedTask;
         }
 
         public IUiManager GetUiManager()

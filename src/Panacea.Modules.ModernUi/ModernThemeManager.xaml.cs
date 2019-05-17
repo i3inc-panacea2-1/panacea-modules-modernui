@@ -59,9 +59,11 @@ namespace Panacea.Modules.ModernUi
 
         private MainPageViewModel _mainPage;
 
-        public ModernThemeManager(PanaceaServices core)
+        public ModernThemeManager(PanaceaServices core, Theme theme)
         {
             _core = core;
+            _mainPage = new MainPageViewModel(_core, theme);
+
             InitializeComponent();
             
             popup = new NotificationsWindow();
@@ -262,8 +264,7 @@ namespace Panacea.Modules.ModernUi
         {
             leftBar.Height =
                             new GridLength(NavigationBarSize, GridUnitType.Star);
-            _mainPage = new MainPageViewModel(_core);
-
+           
             var window = Window.GetWindow(this);
             popup.Owner = window;
 

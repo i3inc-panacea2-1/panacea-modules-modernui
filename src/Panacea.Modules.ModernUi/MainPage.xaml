@@ -34,7 +34,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <DockPanel LastChildFill="False" />
-            
+
             <Grid Grid.Row="1">
                 <ScrollViewer
                     Name="scroll"
@@ -120,7 +120,7 @@
 
                 </ScrollViewer>
             </Grid>
-            
+
             <pcontrols:BindableScrollBar
                 Name="scroll2"
                 Grid.Row="2"
@@ -130,16 +130,4 @@
                 Orientation="Horizontal" />
         </Grid>
     </Grid>
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Unoaded">
-            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
-
-
 </UserControl>

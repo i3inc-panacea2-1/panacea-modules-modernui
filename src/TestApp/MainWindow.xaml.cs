@@ -24,7 +24,7 @@ namespace TestApp
         public MainWindow()
         {
             InitializeComponent();
-            var w = new ModernThemeManager(null);
+            var w = new ModernThemeManager(null, null);
             Content = w;
         }
     }
