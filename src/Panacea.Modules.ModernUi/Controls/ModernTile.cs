@@ -74,10 +74,10 @@ namespace Panacea.Modules.ModernUi.Controls
                     tile.Decoration = "pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/free.png";
                     break;
                 case "paid":
-                    tile.Decoration = "pack://application:,,,/PanaceaLib;component/resources/images/dollar103.png";
+                    tile.Decoration = "pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/dollar103.png";
                     break;
                 case "account":
-                    tile.Decoration = "pack://application:,,,/PanaceaLib;component/resources/images/login_required.png";
+                    tile.Decoration = "pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/login_required.png";
                     break;
             }
         }

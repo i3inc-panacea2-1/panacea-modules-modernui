@@ -117,9 +117,10 @@
     <Content Include="Assets\Images\logo_bottom.png" />
     <Content Include="Assets\Images\swipe-icon.png" />
     <Content Include="Assets\Images\Swipe_Right.png" />
-    <Content Include="Resources\Images\dollar.png" />
-    <Content Include="Resources\Images\free.png" />
-    <Content Include="Resources\Images\login_required.png" />
+    <Resource Include="Resources\Images\dollar103.png" />
+    <Resource Include="Resources\Images\dollar.png" />
+    <Resource Include="Resources\Images\free.png" />
+    <Resource Include="Resources\Images\login_required.png" />
     <Resource Include="Resources\Images\background_final.png" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Panacea.Controls">
-      <Version>0.0.11-beta20190513-1237-gdfddf1a</Version>
+      <Version>0.0.15-beta20190517-1458-g392f1b4</Version>
     </PackageReference>
     <PackageReference Include="Panacea.Modularity.UiManager">
       <Version>8.0.0</Version>

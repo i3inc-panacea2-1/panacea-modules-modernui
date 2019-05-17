@@ -56,7 +56,16 @@ namespace Panacea.Modules.ModernUi.ViewModels
 
             MainImageButtonClickCommand = new RelayCommand((arg) =>
             {
-
+                var ap = arg as AppearancePlugin;
+                var name = ap.Name;
+                if (name != null)
+                {
+                    if (_core.PluginLoader.LoadedPlugins.ContainsKey(name))
+                    {
+                        var callable = _core.PluginLoader.LoadedPlugins[name] as ICallablePlugin;
+                        callable?.Call();
+                    }
+                }
             });
         }
 

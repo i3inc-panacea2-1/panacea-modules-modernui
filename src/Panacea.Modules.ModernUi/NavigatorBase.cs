@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Panacea.Modules.ModernUi
 {
-    public abstract class NavigatorBase : UserControl, INavigator
+    public class NavigatorBase : UserControl, INavigator
     {
         readonly List<string> _navigationHistory = new List<string>();
 
