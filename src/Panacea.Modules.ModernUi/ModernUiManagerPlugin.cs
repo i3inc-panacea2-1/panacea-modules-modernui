@@ -1,6 +1,7 @@
 ﻿using Panacea.Controls;
 using Panacea.Core;
 using Panacea.Modularity.UiManager;
+using Panacea.Modules.ModernUi.Models;
 using Panacea.Modules.ModernUi.Services;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Panacea.Modules.ModernUi
         ModernThemeManager _manager;
         private readonly PanaceaServices _core;
         IThemeSettingsService _themesService;
-
+        GetThemesResponse _settings;
         public ModernUiManagerPlugin(PanaceaServices core)
         {
             _core = core;
@@ -26,14 +27,10 @@ namespace Panacea.Modules.ModernUi
             CacheImage.ImageUrlChanged += CacheImage_ImageUrlChanged;
         }
 
-       
-
-
         public async Task BeginInit()
         {
-            
-            var settings = await _themesService.GetThemeSettingsAsync();
-            _manager = new ModernThemeManager(_core, settings.Themes[0]);
+            _settings = await _themesService.GetThemeSettingsAsync();
+            _manager = new ModernThemeManager(_core, _settings.Themes[0]);
         }
 
         public void Dispose()
@@ -43,6 +40,7 @@ namespace Panacea.Modules.ModernUi
 
         public Task EndInit()
         {
+           
             var window = new Window();
             window.Content = _manager;
             window.Show();
