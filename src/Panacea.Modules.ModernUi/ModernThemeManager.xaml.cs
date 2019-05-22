@@ -183,6 +183,11 @@ namespace Panacea.Modules.ModernUi
 
         public override void Navigate(ViewModelBase page, bool cache = true)
         {
+            if(page == null)
+            {
+                base.Navigate(null, false);
+                return;
+            }
             var view = page.View;
             CurrentView = view;
             base.Navigate(page, cache);
@@ -592,5 +597,7 @@ namespace Panacea.Modules.ModernUi
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

@@ -44,7 +44,13 @@ namespace Panacea.Modules.ModernUi
             var window = new Window();
             window.Content = _manager;
             window.Show();
+            window.Closed += Window_Closed;
             return Task.CompletedTask;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         public IUiManager GetUiManager()
