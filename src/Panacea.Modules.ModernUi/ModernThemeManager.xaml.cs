@@ -368,11 +368,11 @@ namespace Panacea.Modules.ModernUi
             {
                 ((Border) element.View.Parent).Child = null; //.Clear();
             }
-            /*
-            var modal = trasnparent ? new ModalPopup(HostWindow as Window) : new ModalPopup(HostWindow as Window, Utils.CaptureScreen(this));
-            modal.Closed += Popup_ClickedOutside;
+            
+            var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
+            //modal.Closed += Popup_ClickedOutside;
  
-            modal.PopupContent = element;
+            modal.PopupContent = element.View;
             modal.PopupType = popupType;
             modal.Title = title ?? "";
            
@@ -381,8 +381,8 @@ namespace Panacea.Modules.ModernUi
             if (!popedElements.ContainsKey(element))
                 popedElements.Add(element, modal);
             modal.Show();
-            return modal;
-            */
+            //return modal;
+            
         }
 
       

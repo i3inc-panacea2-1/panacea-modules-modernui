@@ -17,8 +17,15 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <controls:OverlayWindow.Resources>
-        <controls1:ShadowDepthConverter x:Key="Converter" />
-        <controls1:NotNullAndFalseToVisibilityConverter x:Key="VisibilityConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <controls1:ShadowDepthConverter x:Key="Converter" />
+            <controls1:NotNullAndFalseToVisibilityConverter x:Key="VisibilityConverter" />
+        </ResourceDictionary>
     </controls:OverlayWindow.Resources>
     <Grid>
         <Image Name="Img" />
@@ -104,7 +111,7 @@
                                     Click="Button_Click"
                                     FontSize="{DynamicResource FontSize-Normal}"
                                     Background="{Binding PopupColor}"
-                                    Style="{DynamicResource PrimaryButton}">
+                                    Style="{StaticResource PrimaryButton}">
                                     Close
                                 </Button>
                             </Grid>
