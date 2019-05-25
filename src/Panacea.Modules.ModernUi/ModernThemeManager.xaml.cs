@@ -80,7 +80,7 @@ namespace Panacea.Modules.ModernUi
             var ch = new CharmsBar(_core) { };
             ch.Close += (oo, ee) =>
             {
-                HidePopup(ch);
+                //HidePopup(ch);
             };
             //_charmbar = ShowPopup(ch);
 
@@ -354,10 +354,10 @@ namespace Panacea.Modules.ModernUi
             Navigate(null);
         }
 
-        private Dictionary<object, object> popedElements = new Dictionary<object, object>();
+        private Dictionary<ViewModelBase, ModalPopup> _popedElements = new Dictionary<ViewModelBase, ModalPopup>();
 
-        public void ShowPopup(
-            ViewModelBase element,
+        public async Task<TResult> ShowPopup<TResult>(
+            PopupViewModelBase<TResult> element,
             string title = null,
             PopupType popupType = PopupType.None,
             bool closable = true,
@@ -378,9 +378,12 @@ namespace Panacea.Modules.ModernUi
            
             modal.Closable = closable;
             
-            if (!popedElements.ContainsKey(element))
-                popedElements.Add(element, modal);
+            if (!_popedElements.ContainsKey(element))
+                _popedElements.Add(element, modal);
             modal.Show();
+            var res = await element.GetTask();
+            HidePopup(element);
+            return res;
             //return modal;
             
         }
@@ -388,29 +391,16 @@ namespace Panacea.Modules.ModernUi
       
         public void HidePopup(ViewModelBase element)
         {
-            int i = popedElements.Count - 1;
-            while (i >= 0)
+            if (_popedElements.ContainsKey(element))
             {
-                if (popedElements.ElementAt(i).Value == element) popedElements.Remove(popedElements.ElementAt(i).Key);
-                i--;
-            }
-            //element.Close();
-            //element.Close(); //element.PopupContent = null;
-
-           
-        }
-
-        public void HidePopup(object element)
-        {
-            if (popedElements.ContainsKey(element))
-            {
-                //HidePopup((IPopup)popedElements[element]);
+                _popedElements[element].Close();
+                _popedElements.Remove(element);
             }
         }
 
         public void HideAllPopups()
         {
-            var keys = popedElements.Keys.ToList();
+            var keys = _popedElements.Keys.ToList();
             foreach (var key in keys)
             {
                 //HidePopup((IPopup)popedElements[key]);

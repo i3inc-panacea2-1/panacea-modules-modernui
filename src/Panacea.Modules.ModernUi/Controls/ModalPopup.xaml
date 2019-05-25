@@ -120,7 +120,7 @@
                                 MinWidth="200"
                                 MinHeight="80"
                                 BorderThickness="1">
-                                <ContentPresenter Margin="2" Content="{Binding PopupContent}" />
+                                <ContentPresenter Name="ContentContainer" Margin="2" Content="{Binding RelativeSource={RelativeSource AncestorType=controls1:ModalPopup}, Path=PopupContent}" />
                             </Border>
                         </Grid>
 
