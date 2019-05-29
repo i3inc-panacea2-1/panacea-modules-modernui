@@ -109,7 +109,7 @@
                                     Grid.Column="1"
                                     HorizontalAlignment="Right"
                                     Click="Button_Click"
-                                    FontSize="{DynamicResource FontSize-Normal}"
+                                    controls:Material.RelativeFontSizeRatio="1.0"
                                     Background="{Binding PopupColor}"
                                     Style="{StaticResource PrimaryButton}">
                                     Close

@@ -370,8 +370,8 @@ namespace Panacea.Modules.ModernUi
             }
             
             var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
-            //modal.Closed += Popup_ClickedOutside;
- 
+            modal.Closed += (oo, ee) => element.Close();
+            modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
             modal.PopupContent = element.View;
             modal.PopupType = popupType;
             modal.Title = title ?? "";

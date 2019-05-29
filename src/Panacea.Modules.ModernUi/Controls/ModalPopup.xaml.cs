@@ -126,19 +126,19 @@ namespace Panacea.Modules.ModernUi.Controls
             switch ((PopupType)e.NewValue)
             {
                 case PopupType.Error:
-                    mp.PopupColor = (SolidColorBrush)Application.Current.Resources["ColorError"];
+                    mp.PopupColor = (SolidColorBrush)mp.Resources["ColorError"];
                     break;
                 case PopupType.None:
-                    mp.PopupColor = (SolidColorBrush)Application.Current.Resources["ColorNone"];
+                    mp.PopupColor = (SolidColorBrush)mp.Resources["ColorNone"];
                     break;
                 case PopupType.Warning:
-                    mp.PopupColor = (SolidColorBrush)Application.Current.Resources["ColorWarning"];
+                    mp.PopupColor = (SolidColorBrush)mp.Resources["ColorWarning"];
                     break;
                 case PopupType.Information:
-                    mp.PopupColor = (SolidColorBrush)Application.Current.Resources["ColorInformation"];
+                    mp.PopupColor = (SolidColorBrush)mp.Resources["ColorInformation"];
                     break;
                 case PopupType.Success:
-                    mp.PopupColor = (SolidColorBrush)Application.Current.Resources["ColorSuccess"];
+                    mp.PopupColor = (SolidColorBrush)mp.Resources["ColorSuccess"];
                     break;
             }
         }
