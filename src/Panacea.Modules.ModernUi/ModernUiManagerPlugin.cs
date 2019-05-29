@@ -93,14 +93,14 @@ namespace Panacea.Modules.ModernUi
                     img2.CreateOptions |= BitmapCreateOptions.IgnoreColorProfile;
                     img2.CacheOption = BitmapCacheOption.OnLoad;
                     img2.StreamSource = new MemoryStream(bytes);
-
                     img2.EndInit();
                     img2.Freeze();
                 });
                 image.Source = img2;
             }
-            catch
+            catch (Exception e)
             {
+                _core.Logger.Error(this, e.Message);
                 //SetDefaultImage();
             }
         }
@@ -115,14 +115,34 @@ namespace Panacea.Modules.ModernUi
                 img2.CacheOption = BitmapCacheOption.OnLoad;
                 img2.UriSource = new Uri(url);
                 img2.EndInit();
-                img2.Freeze();
+                //img2.Freeze();
+                img2.DownloadCompleted += Img2_DownloadCompleted;
 
                 image.Source = img2;
             }
-            catch
+            catch (Exception e)
             {
+                _core.Logger.Error(this, e.Message);
                 //SetDefaultImage();
             }
+        }
+
+        private void Img2_DownloadCompleted(object sender, EventArgs e)
+        {
+            BitmapImage bmp = (sender as BitmapImage);
+            if (bmp.CanFreeze)
+            {
+                try
+                {
+                    bmp.Freeze();
+                }
+                catch (Exception ex)
+                {
+                    _core.Logger.Error(this, ex.Message);
+                    //SetDefaultImage();
+                }
+            }
+
         }
 
         async Task CheckPath(CacheImage image, string url)
