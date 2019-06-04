@@ -41,7 +41,7 @@ namespace Panacea.Modules.ModernUi
         public Task EndInit()
         {
            
-            var window = new Window();
+            var window = new ModernWindow();
             window.Content = _manager;
             window.Show();
             window.Closed += Window_Closed;
