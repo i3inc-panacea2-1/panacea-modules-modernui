@@ -373,11 +373,11 @@ namespace Panacea.Modules.ModernUi
             modal.Closed += (oo, ee) => element.Close();
             modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
             modal.PopupContent = element.View;
+            element.Closable = closable;
+            modal.DataContext = element;
             modal.PopupType = popupType;
             modal.Title = title ?? "";
            
-            modal.Closable = closable;
-            
             if (!_popedElements.ContainsKey(element))
                 _popedElements.Add(element, modal);
             modal.Show();

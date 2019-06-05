@@ -25,6 +25,7 @@
             </ResourceDictionary.MergedDictionaries>
             <controls1:ShadowDepthConverter x:Key="Converter" />
             <controls1:NotNullAndFalseToVisibilityConverter x:Key="VisibilityConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
         </ResourceDictionary>
     </controls:OverlayWindow.Resources>
     <Grid>
@@ -108,10 +109,11 @@
                                     Name="xButton"
                                     Grid.Column="1"
                                     HorizontalAlignment="Right"
-                                    Click="Button_Click"
                                     controls:Material.RelativeFontSizeRatio="1.0"
                                     Background="{Binding PopupColor}"
-                                    Style="{StaticResource PrimaryButton}">
+                                    Click="Button_Click"
+                                    Style="{StaticResource PrimaryButton}"
+                                    Visibility="{Binding Closable, Converter={StaticResource BoolToVis}}">
                                     Close
                                 </Button>
                             </Grid>
@@ -120,7 +122,10 @@
                                 MinWidth="200"
                                 MinHeight="80"
                                 BorderThickness="1">
-                                <ContentPresenter Name="ContentContainer" Margin="2" Content="{Binding RelativeSource={RelativeSource AncestorType=controls1:ModalPopup}, Path=PopupContent}" />
+                                <ContentPresenter
+                                    Name="ContentContainer"
+                                    Margin="2"
+                                    Content="{Binding RelativeSource={RelativeSource AncestorType=controls1:ModalPopup}, Path=PopupContent}" />
                             </Border>
                         </Grid>
 

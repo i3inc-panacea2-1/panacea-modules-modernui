@@ -89,18 +89,6 @@ namespace Panacea.Modules.ModernUi.Controls
             set { SetValue(PopupContentProperty, value); }
         }
 
-        public static readonly DependencyProperty ClosableProperty =
-            DependencyProperty.Register("Closable", typeof(bool),
-                typeof(ModalPopup),
-                new FrameworkPropertyMetadata(true));
-
-
-        public bool Closable
-        {
-            get { return (bool)GetValue(ClosableProperty); }
-            set { SetValue(ClosableProperty, value); }
-        }
-
         public static readonly DependencyProperty PopupTypeProperty =
             DependencyProperty.Register("PopupType", typeof(PopupType),
                 typeof(ModalPopup),
@@ -152,7 +140,6 @@ namespace Panacea.Modules.ModernUi.Controls
         
         protected void OnClickedOutside()
         {
-            if (!Closable) return;
             Closed?.Invoke(this, EventArgs.Empty);
         }
 

@@ -1,9 +1,13 @@
-﻿using System;
+﻿// using InputPanelConfigurationLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace Panacea.Modules.ModernUi
@@ -13,19 +17,21 @@ namespace Panacea.Modules.ModernUi
         public ModernWindow()
         {
             InkInputHelper.DisableWPFTabletSupport();
-
+            SetValue(InputMethod.IsInputMethodEnabledProperty, false);
             this.Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Automation.AutomationElement asForm =
-                System.Windows.Automation.AutomationElement.FromHandle(new WindowInteropHelper(this).Handle);
+            //System.Windows.Automation.AutomationElement asForm =
+                //System.Windows.Automation.AutomationElement.FromHandle(new WindowInteropHelper(this).Handle);
 
 
-            InputPanelConfigurationLib.InputPanelConfiguration inputPanelConfig = new InputPanelConfigurationLib.InputPanelConfiguration();
-            inputPanelConfig.EnableFocusTracking();
+          //var inputPanelConfig = new InputPanelConfiguration();
+          //  inputPanelConfig.EnableFocusTracking();
+            
         }
     }
+
 }
