@@ -13,7 +13,7 @@
     d:DesignHeight="738"
     d:DesignWidth="1366"
     pcontrols:Material.RelativeFontSize="15"
-    pcontrols:Material.HighlightColor="#55ffffff"
+    pcontrols:RippleEffectDecorator.HighlightBackground="#55ffffff"
     Loaded="ThemeManager_OnLoaded"
     Unloaded="ThemeManager_OnUnloaded"
     mc:Ignorable="d">
