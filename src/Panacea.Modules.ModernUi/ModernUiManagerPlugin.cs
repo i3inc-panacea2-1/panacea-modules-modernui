@@ -40,12 +40,17 @@ namespace Panacea.Modules.ModernUi
 
         public Task EndInit()
         {
-           
+            _core.PluginLoader.LoadFinished += PluginLoader_LoadFinished;
+            return Task.CompletedTask;
+        }
+
+        private void PluginLoader_LoadFinished(object sender, EventArgs e)
+        {
+            _core.PluginLoader.LoadFinished -= PluginLoader_LoadFinished;
             var window = new ModernWindow();
             window.Content = _manager;
             window.Show();
             window.Closed += Window_Closed;
-            return Task.CompletedTask;
         }
 
         private void Window_Closed(object sender, EventArgs e)
