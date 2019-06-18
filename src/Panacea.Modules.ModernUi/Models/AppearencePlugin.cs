@@ -176,15 +176,21 @@ namespace Panacea.Modules.ModernUi.Models
                         .Color;
                 blueGs.Offset = 0.0;
                 _backgroundGradient.GradientStops.Add(blueGs);
-
-                var orangeGS = new GradientStop();
-                orangeGS.Color =
-                    ((SolidColorBrush)(new BrushConverter().ConvertFrom(TileBackground.To)))
-                        .Color;
-                orangeGS.Offset = 1;
-                _backgroundGradient.GradientStops.Add(orangeGS);
-                _backgroundGradient.Freeze();
-                return _backgroundGradient;
+                try
+                {
+                    var orangeGS = new GradientStop();
+                    orangeGS.Color =
+                        ((SolidColorBrush)(new BrushConverter().ConvertFrom(TileBackground.To)))
+                            .Color;
+                    orangeGS.Offset = 1;
+                    _backgroundGradient.GradientStops.Add(orangeGS);
+                    _backgroundGradient.Freeze();
+                    return _backgroundGradient;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 

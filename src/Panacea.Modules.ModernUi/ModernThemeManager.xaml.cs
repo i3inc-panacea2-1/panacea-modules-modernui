@@ -35,12 +35,11 @@ namespace Panacea.Modules.ModernUi
 
         private GridLength _originalNavigationBarSize;
         const double NavigationBarSize = .9;
-        ToastWindow _toast;
         private NotificationsWindow popup;
         private readonly PanaceaServices _core;
         //private readonly AudioManager _audioManager;
         private bool _charmsBarIsOpen = false;
-        
+
         private Translator _translator;
         private Theme _theme;
 
@@ -65,7 +64,7 @@ namespace Panacea.Modules.ModernUi
             _mainPage = new MainPageViewModel(_core, theme);
 
             InitializeComponent();
-            
+
             popup = new NotificationsWindow();
             _translator = new Translator("core");
         }
@@ -88,12 +87,12 @@ namespace Panacea.Modules.ModernUi
 
         public void HideCharmsBar(bool animate = true)
         {
-           //     if(_charmbar != null)
-           // HidePopup(_charmbar);
+            //     if(_charmbar != null)
+            // HidePopup(_charmbar);
         }
         public void EnableFullscreen()
         {
-            if(leftBar.Height.Value>0)
+            if (leftBar.Height.Value > 0)
                 _originalNavigationBarSize = leftBar.Height;
             leftBar.Height = new GridLength(0, GridUnitType.Pixel);
         }
@@ -183,7 +182,7 @@ namespace Panacea.Modules.ModernUi
 
         public override void Navigate(ViewModelBase page, bool cache = true)
         {
-            if(page == null)
+            if (page == null)
             {
                 base.Navigate(null, false);
                 return;
@@ -199,7 +198,7 @@ namespace Panacea.Modules.ModernUi
 
         public void SetNavigationBarControl(FrameworkElement c)
         {
-            
+
         }
 
         private void ShowOrHideBackButton()
@@ -270,11 +269,11 @@ namespace Panacea.Modules.ModernUi
 
             leftBar.Height =
                             new GridLength(NavigationBarSize, GridUnitType.Star);
-           
+
             var window = Window.GetWindow(this);
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
-           
+
             if (Application.Current.Resources.Contains("NavigationBarSize"))
             {
                 //_originalNavigationBarSize = leftBar.Width = new GridLength(NavigationBarSize, GridUnitType.Star);
@@ -317,12 +316,12 @@ namespace Panacea.Modules.ModernUi
             }
             double percentage = .38;
             if (keyboardRow.Height.Value != 0.0) return;
-            normalKeyboardGrid.Height = ActualHeight*percentage;
+            normalKeyboardGrid.Height = ActualHeight * percentage;
             //if (!(CurrentPage is IDoesNotAcceptKeyboard))
             {
-                keyboardRow.Height = new GridLength(ActualHeight*percentage, GridUnitType.Pixel);
-               
-                Resources["KeyboardBarHeight"] = new GridLength(ActualHeight*percentage,
+                keyboardRow.Height = new GridLength(ActualHeight * percentage, GridUnitType.Pixel);
+
+                Resources["KeyboardBarHeight"] = new GridLength(ActualHeight * percentage,
                     GridUnitType.Pixel);
             }
         }
@@ -366,9 +365,9 @@ namespace Panacea.Modules.ModernUi
 
             if (element.View.Parent != null)
             {
-                ((Border) element.View.Parent).Child = null; //.Clear();
+                ((Border)element.View.Parent).Child = null; //.Clear();
             }
-            
+
             var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
             modal.Closed += (oo, ee) => element.Close();
             modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
@@ -377,7 +376,7 @@ namespace Panacea.Modules.ModernUi
             modal.DataContext = element;
             modal.PopupType = popupType;
             modal.Title = title ?? "";
-           
+
             if (!_popedElements.ContainsKey(element))
                 _popedElements.Add(element, modal);
             modal.Show();
@@ -385,10 +384,10 @@ namespace Panacea.Modules.ModernUi
             HidePopup(element);
             return res;
             //return modal;
-            
+
         }
 
-      
+
         public void HidePopup(ViewModelBase element)
         {
             if (_popedElements.ContainsKey(element))
@@ -407,7 +406,7 @@ namespace Panacea.Modules.ModernUi
             }
         }
 
-        public double TextSizePercentage { get ; set ; }
+        public double TextSizePercentage { get; set; }
 
         public bool IsPaused { get; private set; }
 
@@ -417,7 +416,7 @@ namespace Panacea.Modules.ModernUi
             ShowNotifications();
         }
 
-        
+
 
         public object AddToolButton(string text, string namesp, string iconUrl, Action action)
         {
@@ -435,17 +434,24 @@ namespace Panacea.Modules.ModernUi
         }
 
         private int _customButtonIndex = 4;
-        
+
         public event EventHandler Paused;
         public event EventHandler Resumed;
-
+        ToastWindow _toast;
         public void Toast(string text, int timeout = 5000)
         {
-            _toast = new ToastWindow(timeout);
-            _toast.Text = text;
-            _toast.Show();
+            Dispatcher.Invoke(() =>
+            {
+                if(_toast == null)
+                {
+                    _toast = new ToastWindow();
+                    _toast.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
+                    _toast.Owner = Window.GetWindow(this);
+                }
+                _toast.Add(text, timeout);
+            });
         }
-        
+
         public void RequestMagicPin()
         {
             throw new NotImplementedException();
@@ -527,7 +533,7 @@ namespace Panacea.Modules.ModernUi
             IsPaused = true;
             Paused?.Invoke(this, EventArgs.Empty);
             popup.WindowState = WindowState.Minimized;
-            
+
         }
 
         public void Resume()
@@ -544,7 +550,7 @@ namespace Panacea.Modules.ModernUi
 
         public void RemoveToolButton(object button)
         {
-            
+
         }
 
         public void RemoveNavigationBarControl(ViewModelBase c)
@@ -588,6 +594,6 @@ namespace Panacea.Modules.ModernUi
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

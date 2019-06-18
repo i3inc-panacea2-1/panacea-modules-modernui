@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -23,46 +25,36 @@ namespace Panacea.Modules.ModernUi.Controls
     /// </summary>
     public partial class ToastWindow : NonFocusableWindow
     {
-        int _timeout;
-        public ToastWindow(int timeout)
+        public ToastWindow()
         {
             InitializeComponent();
-            
-            DataContext = this;
-            _timeout = timeout;
-            Loaded += ToastWindow_Loaded;
+            Texts = new ObservableCollection<string>();
+            var screen = Screen.PrimaryScreen;
+            Left = screen.WorkingArea.Left;
+            Top = screen.WorkingArea.Top;
+            Width = screen.WorkingArea.Width;
+            Height = screen.WorkingArea.Height;
         }
 
-        private async void ToastWindow_Loaded(object sender, RoutedEventArgs e)
+        public ObservableCollection<string> Texts
         {
-            Loaded -= ToastWindow_Loaded;
-            await Task.Delay(_timeout);
-            Close();
+            get { return (ObservableCollection<string>)GetValue(TextsProperty); }
+            set { SetValue(TextsProperty, value); }
         }
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            "Text", typeof (string), typeof (ToastWindow), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.AffectsRender, PropertyChangedCallback));
+        // Using a DependencyProperty as the backing store for Texts.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextsProperty =
+            DependencyProperty.Register("Texts", typeof(ObservableCollection<string>), typeof(ToastWindow), new PropertyMetadata(null));
 
-        private static void PropertyChangedCallback(DependencyObject dependencyObject,
-            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
-            var toast = dependencyObject as ToastWindow;
-            if (toast == null)
-            {
-                return;
-            }
-            if (toast.Text == null)
-            {
-                toast.Opacity = 0;
-                return;
-            }
-            toast.Opacity = 1;
-        }
 
-        public string Text
+        public async void Add(string text, int timeout)
         {
-            get { return (string) GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            Texts.Add(text);
+            Show();
+            await Task.Delay(timeout);
+            Texts.Remove(text);
+            if (Texts.Count == 0)
+                Hide();
         }
     }
 }

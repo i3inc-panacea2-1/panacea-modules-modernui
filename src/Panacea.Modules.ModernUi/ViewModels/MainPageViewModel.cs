@@ -63,7 +63,14 @@ namespace Panacea.Modules.ModernUi.ViewModels
                     if (_core.PluginLoader.LoadedPlugins.ContainsKey(name))
                     {
                         var callable = _core.PluginLoader.LoadedPlugins[name] as ICallablePlugin;
-                        callable?.Call();
+                        try
+                        {
+                            callable?.Call();
+                        }
+                        catch (Exception ex)
+                        {
+                            _core.Logger.Error(this, ex.Message);
+                        }
                     }
                 }
             });
