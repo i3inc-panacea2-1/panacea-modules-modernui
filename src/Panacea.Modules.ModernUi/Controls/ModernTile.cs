@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +29,17 @@ namespace Panacea.Modules.ModernUi.Controls
             set { SetValue(PluginProperty, value); }
         }
 
+        private string PathCombine(params string[] path)
+        {
+            var arr = new string[path.Length + 1];
+            arr[0] = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            for(var i = 0; i < path.Length; i++)
+            {
+                arr[i + 1] = path[i];
+            }
+            return Path.Combine(arr);
+        }
+
         private static void OnPluginChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d == null) return;
@@ -39,14 +51,14 @@ namespace Panacea.Modules.ModernUi.Controls
             {
                 if (!plugin.BackgroundImage.StartsWith("/"))
                 {
-                    //var filename = Utils.Path() + @"resources\images\icons\" + System.IO.Path.GetFileName(plugin.Icon);
-                    //Uri uriResult;
-                    //if (!Uri.TryCreate(plugin.Icon, UriKind.Absolute, out uriResult) && File.Exists(filename))
-                    //{
-                    //    tile.BackgroundImage = filename;
-                    //}
+                    var filename = tile.PathCombine(@"resources\mainpage\images\" ,Path.GetFileName(plugin.BackgroundImage));
+                    Uri uriResult;
+                    if (!Uri.TryCreate(plugin.Icon, UriKind.Absolute, out uriResult) && File.Exists(filename))
+                    {
+                        tile.BackgroundImage = filename;
+                    }
                 }
-                if (tile.IconImage == null)
+                if (tile.BackgroundImage == null)
                 {
                     tile.BackgroundImage = plugin.BackgroundImage;
                 }
@@ -56,12 +68,12 @@ namespace Panacea.Modules.ModernUi.Controls
             {
                 if (!plugin.Icon.StartsWith("/"))
                 {
-                    //var filename = Utils.Path() + @"resources\images\icons\" + System.IO.Path.GetFileName(plugin.Icon);
-                    //Uri uriResult;
-                    //if (!Uri.TryCreate(plugin.Icon, UriKind.Absolute, out uriResult) && File.Exists(filename))
-                    //{
-                    //    tile.IconImage = filename;
-                    //}
+                    var filename = tile.PathCombine(@"resources\mainpage\images\", Path.GetFileName(plugin.Icon));
+                    Uri uriResult;
+                    if (!Uri.TryCreate(plugin.Icon, UriKind.Absolute, out uriResult) && File.Exists(filename))
+                    {
+                        tile.IconImage = filename;
+                    }
                 }
                 if (tile.IconImage == null)
                 {
