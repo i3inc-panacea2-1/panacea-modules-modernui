@@ -36,9 +36,15 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="1" Grid.Column="1">
             <Grid>
-                <Border Background="White" CornerRadius="99999" Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}" >
+                <Border
+                    Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                    Background="White"
+                    CornerRadius="99999">
                     <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity=".2"/>
+                        <DropShadowEffect
+                            BlurRadius="10"
+                            Opacity=".2"
+                            ShadowDepth="0" />
                     </Border.Effect>
                 </Border>
                 <Viewbox Margin="10">
