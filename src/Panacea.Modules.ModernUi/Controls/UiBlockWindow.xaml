@@ -34,8 +34,18 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Viewbox Grid.Row="1" Grid.Column="1">
-            <ProgressBar Foreground="White" IsIndeterminate="True" />
-        </Viewbox>
+        <Border Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <Border Background="White" CornerRadius="99999" Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}" >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity=".2"/>
+                    </Border.Effect>
+                </Border>
+                <Viewbox Margin="10">
+                    <ProgressBar Foreground="{DynamicResource ColorPrimary}" IsIndeterminate="True" />
+                </Viewbox>
+            </Grid>
+        </Border>
+
     </Grid>
 </controls:OverlayWindow>
