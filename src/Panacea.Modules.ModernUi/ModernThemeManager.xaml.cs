@@ -355,34 +355,35 @@ namespace Panacea.Modules.ModernUi
 
         private Dictionary<ViewModelBase, ModalPopup> _popedElements = new Dictionary<ViewModelBase, ModalPopup>();
 
-        public async Task<TResult> ShowPopup<TResult>(
+        public Task<TResult> ShowPopup<TResult>(
             PopupViewModelBase<TResult> element,
             string title = null,
             PopupType popupType = PopupType.None,
             bool closable = true,
             bool trasnparent = true)
         {
-
-            if (element.View.Parent != null)
+            return Application.Current.Dispatcher.Invoke(async() =>
             {
-                ((Border)element.View.Parent).Child = null; //.Clear();
-            }
+                if (element.View.Parent != null)
+                {
+                    ((Border)element.View.Parent).Child = null; //.Clear();
+                }
+                var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
+                modal.Closed += (oo, ee) => element.Close();
+                modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
+                modal.PopupContent = element.View;
+                element.Closable = closable;
+                modal.DataContext = element;
+                modal.PopupType = popupType;
+                modal.Title = title ?? "";
 
-            var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
-            modal.Closed += (oo, ee) => element.Close();
-            modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
-            modal.PopupContent = element.View;
-            element.Closable = closable;
-            modal.DataContext = element;
-            modal.PopupType = popupType;
-            modal.Title = title ?? "";
-
-            if (!_popedElements.ContainsKey(element))
-                _popedElements.Add(element, modal);
-            modal.Show();
-            var res = await element.GetTask();
-            HidePopup(element);
-            return res;
+                if (!_popedElements.ContainsKey(element))
+                    _popedElements.Add(element, modal);
+                modal.Show();
+                var res = await element.GetTask();
+                HidePopup(element);
+                return res;
+            });
             //return modal;
 
         }
