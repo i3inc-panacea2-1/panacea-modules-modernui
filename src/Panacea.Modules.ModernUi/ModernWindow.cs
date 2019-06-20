@@ -16,11 +16,14 @@ namespace Panacea.Modules.ModernUi
     {
         public ModernWindow()
         {
-            InkInputHelper.DisableWPFTabletSupport();
-            SetValue(InputMethod.IsInputMethodEnabledProperty, false);
+            //InkInputHelper.DisableWPFTabletSupport();
+            //SetValue(InputMethod.IsInputMethodEnabledProperty, false);
             this.Loaded += MainWindow_Loaded;
         }
-
+        protected override void OnManipulationBoundaryFeedback(ManipulationBoundaryFeedbackEventArgs e)
+        {
+            e.Handled = true;
+        }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 

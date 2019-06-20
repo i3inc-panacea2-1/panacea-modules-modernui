@@ -35,7 +35,7 @@ namespace Panacea.Modules.ModernUi
 
         public void Dispose()
         {
-           
+
         }
 
         public Task EndInit()
@@ -160,10 +160,17 @@ namespace Panacea.Modules.ModernUi
             }
             else
             {
-                var download = await _core.HttpClient.DownloadDataAsync(url);
-                if (download != null)
+                try
                 {
-                    await SetImagePath(image, download);
+                    var download = await _core.HttpClient.DownloadDataAsync(url);
+                    if (download != null)
+                    {
+                        await SetImagePath(image, download);
+                    }
+                }
+                catch
+                {
+                    //set default
                 }
             }
 
