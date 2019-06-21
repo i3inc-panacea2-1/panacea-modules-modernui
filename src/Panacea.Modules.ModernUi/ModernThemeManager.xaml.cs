@@ -20,8 +20,6 @@ namespace Panacea.Modules.ModernUi
     /// </summary>
     public partial class ModernThemeManager : NavigatorBase, IUiManager
     {
-
-
         public FrameworkElement CurrentView
         {
             get { return (FrameworkElement)GetValue(CurrentViewProperty); }
@@ -74,22 +72,7 @@ namespace Panacea.Modules.ModernUi
             return _charmsBarIsOpen;
         }
 
-        public void ShowCharmsBar(bool animate = true)
-        {
-            var ch = new CharmsBar(_core) { };
-            ch.Close += (oo, ee) =>
-            {
-                //HidePopup(ch);
-            };
-            //_charmbar = ShowPopup(ch);
 
-        }
-
-        public void HideCharmsBar(bool animate = true)
-        {
-            //     if(_charmbar != null)
-            // HidePopup(_charmbar);
-        }
         public void EnableFullscreen()
         {
             if (leftBar.Height.Value > 0)
@@ -220,24 +203,6 @@ namespace Panacea.Modules.ModernUi
 
         #endregion navigation methods
 
-        private void charmsbar_Close(object sender, EventArgs e)
-        {
-            HideCharmsBar(false);
-        }
-
-
-        private void UserFunctionsHeaderButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsCharmsOpen())
-            {
-                ShowCharmsBar();
-            }
-            else
-            {
-                HideCharmsBar();
-            }
-            //ShowCharmsBar();
-        }
 
         private void OnToggleKeyboardClicked(object sender, RoutedEventArgs e)
         {
@@ -279,7 +244,6 @@ namespace Panacea.Modules.ModernUi
                 //_originalNavigationBarSize = leftBar.Width = new GridLength(NavigationBarSize, GridUnitType.Star);
             }
 
-            HideCharmsBar(false);
             if (!_history.Any())
             {
                 Navigate(_mainPage, true);
@@ -413,7 +377,6 @@ namespace Panacea.Modules.ModernUi
 
         private void charmsbar_ShowNotificationsClick(object sender, EventArgs e)
         {
-            HideCharmsBar(false);
             ShowNotifications();
         }
 
@@ -587,7 +550,7 @@ namespace Panacea.Modules.ModernUi
 
         public void AddSettingsControl(ViewModelBase c)
         {
-            throw new NotImplementedException();
+            _settingsControls.Add(c.View);
         }
 
         public void RemoveSettingsControl(ViewModelBase c)
@@ -595,6 +558,11 @@ namespace Panacea.Modules.ModernUi
             throw new NotImplementedException();
         }
 
-
+        List<UIElement> _settingsControls = new List<UIElement>();
+        private async void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ch = new CharmsBarViewModel(_settingsControls);
+            await ShowPopup(ch);
+        }
     }
 }

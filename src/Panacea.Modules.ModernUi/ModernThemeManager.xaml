@@ -61,15 +61,24 @@
                         pcontrols:Material.Icon="arrow_back"
                         Click="Button_Click"
                         Text="{multilinguality:Translate 'Back',
-                                                         'core'}"
+                                                         'ModernUi'}"
                         TextVisibility="Visible" />
                     <pcontrols:ImageButton
                         x:Name="homeButton"
                         pcontrols:Material.Icon="apps"
                         Click="homeButton_Click"
                         Text="{multilinguality:Translate 'Home',
-                                                         'core'}"
+                                                         'ModernUi'}"
                         TextVisibility="Visible" />
+
+                    <pcontrols:ImageButton
+                        Name="SettingsButton"
+                        Click="SettingsButton_Click"
+                        pcontrols:Material.Icon="settings"
+                        Text="{multilinguality:Translate 'Settings',
+                                                         'ModernUi'}"
+                        TextVisibility="Visible"
+                        DockPanel.Dock="Right"/>
                 </DockPanel>
 
             </Grid>

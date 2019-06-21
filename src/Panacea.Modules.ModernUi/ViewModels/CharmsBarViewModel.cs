@@ -1,22 +1,20 @@
 ﻿using Panacea.Core;
+using Panacea.Modularity.UiManager;
+using Panacea.Modules.ModernUi.Controls;
 using Panacea.Mvvm;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {
-    public class CharmsBarViewModel: PropertyChangedBase
+    [View(typeof(CharmsBar))]
+    public class CharmsBarViewModel: PopupViewModelBase<object>
     {
-        private readonly PanaceaServices _core;
+        public List<UIElement> Controls { get; set; }
 
-        public CharmsBarViewModel(PanaceaServices core)
+        public CharmsBarViewModel(List<UIElement> controls)
         {
-            _core = core;
+            Controls = controls;
         }
-
-        public float SpeakersLevel { get; set; }
-
-
-        public string User { get; set; }
-
-
     }
 }

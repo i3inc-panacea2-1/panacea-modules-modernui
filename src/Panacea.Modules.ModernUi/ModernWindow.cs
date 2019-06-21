@@ -1,6 +1,7 @@
 ﻿// using InputPanelConfigurationLib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,11 @@ namespace Panacea.Modules.ModernUi
             //InkInputHelper.DisableWPFTabletSupport();
             //SetValue(InputMethod.IsInputMethodEnabledProperty, false);
             this.Loaded += MainWindow_Loaded;
+            if (!Debugger.IsAttached)
+            {
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
+            }
         }
         protected override void OnManipulationBoundaryFeedback(ManipulationBoundaryFeedbackEventArgs e)
         {
