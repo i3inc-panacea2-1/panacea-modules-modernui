@@ -1,6 +1,9 @@
-﻿using Panacea.Modules.ModernUi.Models;
+﻿using Panacea.Modularity.UiManager;
+using Panacea.Modules.ModernUi.Models;
+using Panacea.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
@@ -33,7 +36,7 @@ namespace Panacea.Modules.ModernUi.Controls
         {
             var arr = new string[path.Length + 1];
             arr[0] = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            for(var i = 0; i < path.Length; i++)
+            for (var i = 0; i < path.Length; i++)
             {
                 arr[i + 1] = path[i];
             }
@@ -51,7 +54,7 @@ namespace Panacea.Modules.ModernUi.Controls
             {
                 if (!plugin.BackgroundImage.StartsWith("/"))
                 {
-                    var filename = tile.PathCombine(@"resources\mainpage\images\" ,Path.GetFileName(plugin.BackgroundImage));
+                    var filename = tile.PathCombine(@"resources\mainpage\images\", Path.GetFileName(plugin.BackgroundImage));
                     Uri uriResult;
                     if (!Uri.TryCreate(plugin.Icon, UriKind.Absolute, out uriResult) && File.Exists(filename))
                     {
@@ -101,10 +104,59 @@ namespace Panacea.Modules.ModernUi.Controls
 
         public static readonly DependencyProperty FramesProperty =
             DependencyProperty.Register("Frames",
-                typeof(List<UIElement>),
+                typeof(ObservableCollection<LiveTileFrame>),
                 typeof(ModernTile),
-                new FrameworkPropertyMetadata(null));
+                new FrameworkPropertyMetadata(null, OnFramesChanged));
 
+        private static void OnFramesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var self = d as ModernTile;
+            if (d == null) return;
+            var old = e.OldValue as ObservableCollection<LiveTileFrame>;
+
+            var n = e.NewValue as ObservableCollection<LiveTileFrame>;
+            if (n != null)
+            {
+                n.CollectionChanged += self.N_CollectionChanged;
+                self.UpdateFrames();
+            }
+        }
+
+        void UpdateFrames()
+        {
+            if (Plugin != null)
+            {
+                if (Plugin.Frames.Count > 0)
+                {
+                    foreach (var el in Plugin.Frames) AddFrame(el.Element.View);
+                }
+                frame = 0;
+                _dTimer.Interval = TimeSpan.FromMilliseconds(Plugin.Interval);
+
+                Plugin.IntervalChanged += Plugin_IntervalChanged;
+
+            }
+            if (InternalFrames.Count > 1)
+            {
+                _dTimer.Start();
+            }
+        }
+
+        private void N_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                AddFrame(((LiveTileFrame)e.NewItems[0]).Element.View);
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                RemoveFrame(((LiveTileFrame)e.OldItems[0]).Element.View);
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                InternalFrames.RemoveRange(1, InternalFrames.Count - 1);
+            }
+        }
 
         public static readonly DependencyProperty BackgroundImageProperty =
            DependencyProperty.Register("BackgroundImage",
@@ -173,46 +225,40 @@ namespace Panacea.Modules.ModernUi.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ModernTile), new FrameworkPropertyMetadata(typeof(ModernTile)));
         }
-        public List<UIElement> Frames { get; set; }
+        public ObservableCollection<LiveTileFrame> Frames
+        {
+            get => (ObservableCollection<LiveTileFrame>)GetValue(FramesProperty);
+            set
+            {
+                SetValue(FramesProperty, value);
+            }
+        }
 
         readonly DispatcherTimer _dTimer = new DispatcherTimer();
-
+        private List<UIElement> InternalFrames { get; set; }
         int frame = 0;
         public ModernTile()
         {
-            Frames = new List<UIElement> { new ModernTileDefaultContent() };
+            InternalFrames = new List<UIElement> { new ModernTileDefaultContent() };
 
-            CurrentFrame = Frames[0];
+            CurrentFrame = InternalFrames[0];
             Interval = 4000;
 
             _dTimer.Tick += (oo, ee) =>
             {
                 frame++;
-                if (frame > Frames.Count - 1) frame = 0;
+                if (frame > InternalFrames.Count - 1) frame = 0;
                 try
                 {
-                    Dispatcher.Invoke(() => { CurrentFrame = Frames[frame]; });
+                    Dispatcher.Invoke(() => { CurrentFrame = InternalFrames[frame]; });
                 }
                 catch
                 {
                 }
             };
-            Loaded += (sernder, args) =>
+            Loaded += (oo, ee) =>
             {
-                if (Plugin != null)
-                {
-                    Plugin.Frames.CollectionChanged += Frames_CollectionChanged;
-                    if (Plugin.Frames.Count > 0)
-                    {
-                        foreach (var el in Plugin.Frames) AddFrame(el);
-                    }
-                    frame = 0;
-                    _dTimer.Interval = TimeSpan.FromMilliseconds(Plugin.Interval);
-
-                    Plugin.IntervalChanged += Plugin_IntervalChanged;
-
-                }
-                if (Frames.Count > 1)
+                if (InternalFrames.Count > 1)
                 {
                     _dTimer.Start();
                 }
@@ -220,15 +266,7 @@ namespace Panacea.Modules.ModernUi.Controls
             Unloaded += (sender, args) =>
             {
                 _dTimer.Stop();
-                if (Plugin != null)
-                {
-                    if (Plugin.Frames.Count > 0)
-                    {
-                        foreach (var el in Plugin.Frames) RemoveFrame(el);
-                    }
-                    Plugin.Frames.CollectionChanged -= Frames_CollectionChanged;
-                    Plugin.IntervalChanged -= Plugin_IntervalChanged;
-                }
+                
             };
             _storyboard = new Storyboard();
 
@@ -264,27 +302,7 @@ namespace Panacea.Modules.ModernUi.Controls
         {
             _dTimer.Interval = TimeSpan.FromMilliseconds(ee.Interval);
         }
-        protected void Frames_CollectionChanged(object sender, NotifyCollectionChangedEventArgs ee)
-        {
-            if (ee.Action == NotifyCollectionChangedAction.Add)
-            {
-                AddFrame((UIElement)ee.NewItems[0]);
-            }
-            else if (ee.Action == NotifyCollectionChangedAction.Remove)
-            {
-                RemoveFrame((UIElement)ee.OldItems[0]);
-            }
-            else if (ee.Action == NotifyCollectionChangedAction.Reset)
-            {
-                Frames.RemoveRange(1, Frames.Count - 1);
-            }
-        }
-#if DEBUG
-        ~ModernTile()
-        {
-            System.Diagnostics.Debug.WriteLine("~ModernTile v2");
-        }
-#endif
+
 
         protected override void OnClick()
         {
@@ -299,23 +317,23 @@ namespace Panacea.Modules.ModernUi.Controls
 
         public void AddFrame(UIElement element)
         {
-            if (Frames.Contains(element)) return;
+            if (InternalFrames.Contains(element)) return;
 
-            Frames.Add(element);
-            CurrentFrame = Frames[0];
+            InternalFrames.Add(element);
+            CurrentFrame = InternalFrames[0];
 
             _dTimer.Start();
         }
 
         public void RemoveFrame(UIElement element)
         {
-            Frames.Remove(element);
+            InternalFrames.Remove(element);
             try
             {
-                if (Frames.Count <= 1)
+                if (InternalFrames.Count <= 1)
                 {
 
-                    CurrentFrame = Frames[0];
+                    CurrentFrame = InternalFrames[0];
 
                 }
                 _dTimer.Stop();

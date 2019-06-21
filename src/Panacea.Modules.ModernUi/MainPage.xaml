@@ -95,7 +95,8 @@
                                                     CommandParameter="{Binding}"
                                                     IsSelected="{Binding IsSelected}"
                                                     Plugin="{Binding}"
-                                                    Visibility="{Binding Visibility}">
+                                                    Visibility="{Binding Visibility}"
+                                                    Frames="{Binding Frames}">
                                                     <controls:ModernTile.Width>
                                                         <MultiBinding Converter="{StaticResource converter}">
                                                             <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />

@@ -1,4 +1,6 @@
-﻿using Panacea.Multilinguality;
+﻿using Panacea.Modularity.UiManager;
+using Panacea.Multilinguality;
+using Panacea.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +32,6 @@ namespace Panacea.Modules.ModernUi.Models
             : base()
         {
             this.Size = new MenuTileSize() { X = 1, Y = 1 };
-            Frames = new ObservableCollection<UIElement>();
             interval = 4000;
         }
 
@@ -153,7 +154,16 @@ namespace Panacea.Modules.ModernUi.Models
             }
         }
 
-        public ObservableCollection<UIElement> Frames { get; set; }
+        ObservableCollection<LiveTileFrame> _frames;
+        public ObservableCollection<LiveTileFrame> Frames
+        {
+            get => _frames;
+            set
+            {
+                _frames = value;
+                OnPropertyChanged("Frames");
+            }
+        }
 
         private LinearGradientBrush _backgroundGradient;
         public LinearGradientBrush BackgroundGradient

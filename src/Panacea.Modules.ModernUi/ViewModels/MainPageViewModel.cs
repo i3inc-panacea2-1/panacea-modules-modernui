@@ -38,14 +38,14 @@ namespace Panacea.Modules.ModernUi.ViewModels
             {
                 try
                 {
-                    //if (
-                    //    _theme.Groups.Any(
-                    //        g => g.AppearancePlugins.Any(p => p.Name == plugin))
-                    //    && core.PluginLoader.LoadedPlugins.Any(p => p.Key == plugin))
-
-                    //    (core.PluginLoader.LoadedPlugins[plugin] as ICallablePlugin).MainButton =
-                    //        _theme.Groups.SelectMany(g => g.AppearancePlugins)
-                    //            .First(p => p.Name == plugin);
+                    if (
+                        _theme.Groups.Any(
+                            g => g.AppearancePlugins.Any(p => p.Name == plugin))
+                        && core.PluginLoader.LoadedPlugins.Any(p => p.Key == plugin && typeof(ILiveTilesPlugin).IsAssignableFrom(p.Value.GetType())))
+                        _theme.Groups.SelectMany(g => g.AppearancePlugins)
+                                .First(p => p.Name == plugin)
+                                .Frames = (core.PluginLoader.LoadedPlugins[plugin] as ILiveTilesPlugin).Frames;
+                            
 
                 }
                 catch (Exception)
