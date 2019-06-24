@@ -30,7 +30,7 @@ namespace Panacea.Modules.ModernUi.Controls
         {
             var res = base.MeasureOverride(constraint);
             if (constraint.Width != double.PositiveInfinity && constraint.Height != double.PositiveInfinity)
-                return new Size(constraint.Width, constraint.Height);
+                return new Size(res.Width, constraint.Height);
 
             return res;
         }

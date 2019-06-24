@@ -9,6 +9,7 @@ using Panacea.Modularity.UiManager;
 using Panacea.Modules.ModernUi.Models;
 using Panacea.Multilinguality;
 using System.Windows;
+using Panacea.Modules.ModernUi.Views;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {

@@ -1,0 +1,53 @@
+﻿{
+    "plugin": "core",
+  "Actions": [
+    {
+      "ElementName": null,
+      "Text": "Welcome to Panacea™, the patient centric solution!\r\nThis is your Panacea™ on screen guide.\r\nClick \"Next to continue\"",
+      "Type": "Information",
+      "Highlight": "None"
+    },
+    {
+      "ElementName": null,
+      "Text": "Tap the button below to learn basic Panacea™ controls such as tap, slide, swipe, drag etc.",
+      "Type": "Information",
+      "Highlight": "None",
+      "CustomAction": {
+        "Type": "Link",
+        "Function": "StartTutorial",
+        "Text": "Learn basic controls"
+      }
+    },
+    {
+      "ElementName": "TilesControl",
+      "Text": "Tap any of the tiles to start interacting with Panacea™",
+      "Type": "Information",
+      "Handled": true
+    },
+    {
+      "ElementName": "TilesControl",
+      "Text": "Slide to the left or right to see more tiles",
+      "Type": "Information",
+      "Handled": true,
+      "Image": "pack://application:,,,/ThemeManagers;component/Assets/Images/swipe-icon.png"
+    },
+    {
+      "ElementName": "FavoritesButton",
+      "Text": "Tap here to access your favorite content.",
+      "Type": "Information",
+      "Handled": true
+    },
+    {
+      "ElementName": "LoginButton",
+      "Text": "Tap here sign in with your account and access more content",
+      "Type": "Information",
+      "Handled": true
+    },
+    {
+      "ElementName": "MainAccountButton",
+      "Text": "Tap here to access your personal account details.",
+      "Type": "Information",
+      "Handled": true
+    }
+  ]
+}

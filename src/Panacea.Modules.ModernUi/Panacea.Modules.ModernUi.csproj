@@ -61,7 +61,6 @@
     <Compile Include="Converters\ParentContainerUnitConverter.cs" />
     <Compile Include="Controls\ModernTile.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
-    <Compile Include="InkInputHelper.cs" />
     <Compile Include="Models\AppearencePlugin.cs" />
     <Compile Include="ModernWindow.cs" />
     <Compile Include="NavigatorBase.cs" />
@@ -84,7 +83,11 @@
     <Compile Include="Controls\ToastWindow.xaml.cs">
       <DependentUpon>ToastWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="ViewModels\FontSizeControlViewModel.cs" />
+    <Compile Include="Views\FontSizeSettingsControl.xaml.cs">
+      <DependentUpon>FontSizeSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModernThemeManager.xaml.cs">
@@ -97,7 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MainPage.guide" />
+    <None Include="Views\MainPage.guide" />
     <None Include="ModernThemeManager.guide" />
   </ItemGroup>
   <ItemGroup>
@@ -439,7 +442,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\FontSizeSettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

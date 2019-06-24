@@ -231,7 +231,7 @@ namespace Panacea.Modules.ModernUi
         }
 
         private static string[] _fontSizes = new string[13]
-{
+        {
             "FontSize-Xxx-Huge",
             "FontSize-Xx-Huge",
             "FontSize-X-Huge",
@@ -245,27 +245,35 @@ namespace Panacea.Modules.ModernUi
             "FontSize-X-Small",
             "FontSize-Xx-Small",
             "FontSize-Xxx-Small"
-};
+        };
 
-        private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
+        float _ratio = 1f;
+
+        void ResizeFonts()
         {
-            var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0);
+            var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0) * _ratio;
             foreach (var name in _fontSizes)
             {
                 Resources[name] = (double)Resources["Original" + name] * ratio;
                 Debug.WriteLine(name + " " + Resources[name]);
             }
-            leftBar.Height =
-                            new GridLength(NavigationBarSize, GridUnitType.Star);
+        }
+
+        FontSizeControlViewModel _fontSizeControl;
+        private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _fontSizeControl = new FontSizeControlViewModel()
+            {
+                Ratio = 100
+            };
+            
+            _fontSizeControl.PropertyChanged += Settings_PropertyChanged;
+            ResizeFonts();
+            AddSettingsControl(_fontSizeControl);
 
             var window = Window.GetWindow(this);
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
-
-            if (Application.Current.Resources.Contains("NavigationBarSize"))
-            {
-                //_originalNavigationBarSize = leftBar.Width = new GridLength(NavigationBarSize, GridUnitType.Star);
-            }
 
             if (!_history.Any())
             {
@@ -276,6 +284,12 @@ namespace Panacea.Modules.ModernUi
                 _history.RemoveAt(0);
                 _history.Insert(0, _mainPage);
             }
+        }
+
+        private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            _ratio = _fontSizeControl.Ratio / 100f;
+            ResizeFonts();
         }
 
         private bool _keyboardOpen = false;
