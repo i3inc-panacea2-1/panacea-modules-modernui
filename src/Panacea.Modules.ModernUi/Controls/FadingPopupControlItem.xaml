@@ -31,7 +31,7 @@
                 Margin="3"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                pcontrols:Material.RelativeFontSizeRatio=".8"
+                FontSize="{DynamicResource FontSize-X-Small}"
                 Foreground="White"
                 TextWrapping="Wrap" />
         </Border>
@@ -43,7 +43,7 @@
             Click="Button_Click_1"
             Content="{multilinguality:Translate 'Dismiss',
                                                 'core'}"
-            pcontrols:Material.RelativeFontSizeRatio=".6"
+            FontSize="{DynamicResource FontSize-Small}"
             Style="{DynamicResource PrimaryButton}" />
     </Grid>
 

@@ -16,11 +16,6 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <converters:ParentContainerUnitConverter x:Key="converter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -66,7 +61,7 @@
                                         Margin="4,0,0,5"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
-                                        pcontrols:Material.RelativeFontSizeRatio="2.0"
+                                        FontSize="{DynamicResource FontSize-Xxx-Large}"
                                         Foreground="{DynamicResource MainPage.TileGroup.Header.ForegroundColor}"
                                         IsHitTestVisible="True"
                                         Text="{Binding Name}"

@@ -12,15 +12,14 @@
     xmlns:uimanager="clr-namespace:Panacea.Modularity.UiManager;assembly=Panacea.Modularity.UiManager"
     d:DesignHeight="738"
     d:DesignWidth="1366"
-    pcontrols:Material.RelativeFontSize="15"
     pcontrols:RippleEffectDecorator.HighlightBackground="#55ffffff"
     Loaded="ThemeManager_OnLoaded"
     Unloaded="ThemeManager_OnUnloaded"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    TextElement.FontSize="{DynamicResource FontSize-Normal}">
     <thememanagers:NavigatorBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
@@ -47,7 +46,8 @@
                     Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    LastChildFill="False">
+                    LastChildFill="False"
+                    TextElement.FontSize="{DynamicResource FontSize-Small}">
                     <DockPanel.Resources>
                         <Style TargetType="pcontrols:ImageButton">
                             <Style.Setters>

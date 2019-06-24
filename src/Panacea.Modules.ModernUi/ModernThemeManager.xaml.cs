@@ -12,6 +12,7 @@ using Panacea.Core;
 using Panacea.Modules.ModernUi.Models;
 using Panacea.Mvvm;
 using Panacea.Modules.ModernUi.ViewModels;
+using System.Diagnostics;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -229,9 +230,31 @@ namespace Panacea.Modules.ModernUi
             GoBack();
         }
 
+        private static string[] _fontSizes = new string[13]
+{
+            "FontSize-Xxx-Huge",
+            "FontSize-Xx-Huge",
+            "FontSize-X-Huge",
+            "FontSize-Huge",
+            "FontSize-Xxx-Large",
+            "FontSize-Xx-Large",
+            "FontSize-X-Large",
+            "FontSize-Large",
+            "FontSize-Normal",
+            "FontSize-Small",
+            "FontSize-X-Small",
+            "FontSize-Xx-Small",
+            "FontSize-Xxx-Small"
+};
+
         private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+            var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0);
+            foreach (var name in _fontSizes)
+            {
+                Resources[name] = (double)Resources["Original" + name] * ratio;
+                Debug.WriteLine(name + " " + Resources[name]);
+            }
             leftBar.Height =
                             new GridLength(NavigationBarSize, GridUnitType.Star);
 
@@ -334,7 +357,6 @@ namespace Panacea.Modules.ModernUi
                 }
                 var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
                 modal.Closed += (oo, ee) => element.Close();
-                modal.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
                 modal.PopupContent = element.View;
                 element.Closable = closable;
                 modal.DataContext = element;
@@ -409,7 +431,6 @@ namespace Panacea.Modules.ModernUi
                 if(_toast == null)
                 {
                     _toast = new ToastWindow();
-                    _toast.SetValue(Material.RelativeFontSizeProperty, GetValue(Material.RelativeFontSizeProperty));
                     _toast.Owner = Window.GetWindow(this);
                 }
                 _toast.Add(text, timeout);

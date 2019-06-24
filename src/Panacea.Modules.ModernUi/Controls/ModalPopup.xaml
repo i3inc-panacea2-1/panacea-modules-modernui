@@ -14,6 +14,7 @@
     Loaded="ModalPopup_OnLoaded"
     PreviewKeyDown="ModalPopup_OnPreviewKeyDown"
     ShowInTaskbar="False"
+    TextElement.FontSize="{DynamicResource FontSize-Normal}"
     WindowStyle="None"
     mc:Ignorable="d">
     <controls:OverlayWindow.Resources>
@@ -109,9 +110,9 @@
                                     Name="xButton"
                                     Grid.Column="1"
                                     HorizontalAlignment="Right"
-                                    controls:Material.RelativeFontSizeRatio="1.0"
                                     Background="{Binding RelativeSource={RelativeSource AncestorType=controls1:ModalPopup}, Path=PopupColor}"
                                     Click="Button_Click"
+                                    FontSize="{DynamicResource FontSize-Normal}"
                                     Style="{StaticResource PrimaryButton}"
                                     Visibility="{Binding Closable, Converter={StaticResource BoolToVis}}">
                                     Close

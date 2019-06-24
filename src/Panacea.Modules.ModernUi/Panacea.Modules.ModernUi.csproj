@@ -36,6 +36,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -50,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActualSizePropertyProxy.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ModernTileDefaultContent.cs" />
     <Compile Include="Controls\UiBlockWindow.xaml.cs">
       <DependentUpon>UiBlockWindow.xaml</DependentUpon>
@@ -403,6 +407,10 @@
     <Resource Include="Resources\Images\background_final.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\PanaceaLitePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -458,7 +466,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Panacea.Controls">
-      <Version>0.2.2</Version>
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Panacea.Core">
       <Version>10.0.0</Version>
