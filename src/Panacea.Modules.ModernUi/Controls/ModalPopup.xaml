@@ -20,8 +20,6 @@
     <controls:OverlayWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <controls1:ShadowDepthConverter x:Key="Converter" />
@@ -113,7 +111,7 @@
                                     Background="{Binding RelativeSource={RelativeSource AncestorType=controls1:ModalPopup}, Path=PopupColor}"
                                     Click="Button_Click"
                                     FontSize="{DynamicResource FontSize-Normal}"
-                                    Style="{StaticResource PrimaryButton}"
+                                    Style="{DynamicResource PrimaryButton}"
                                     Visibility="{Binding Closable, Converter={StaticResource BoolToVis}}">
                                     Close
                                 </Button>

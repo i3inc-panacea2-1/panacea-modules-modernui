@@ -349,13 +349,14 @@ namespace Panacea.Modules.ModernUi
             bool closable = true,
             bool trasnparent = true)
         {
-            return Application.Current.Dispatcher.Invoke(async() =>
+            return Application.Current.Dispatcher.Invoke(async () =>
             {
                 if (element.View.Parent != null)
                 {
                     ((Border)element.View.Parent).Child = null; //.Clear();
                 }
                 var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
+                modal.Resources = Resources;
                 modal.Closed += (oo, ee) => element.Close();
                 modal.PopupContent = element.View;
                 element.Closable = closable;
@@ -428,7 +429,7 @@ namespace Panacea.Modules.ModernUi
         {
             Dispatcher.Invoke(() =>
             {
-                if(_toast == null)
+                if (_toast == null)
                 {
                     _toast = new ToastWindow();
                     _toast.Owner = Window.GetWindow(this);
