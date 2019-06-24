@@ -13,7 +13,7 @@
         <ItemsControl ItemsSource="{Binding Controls}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel />
+                    <UniformGrid Columns="2" VerticalAlignment="Top" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -22,7 +22,9 @@
                         Margin="5"
                         Background="#444953"
                         CornerRadius="5">
-                        <ContentPresenter Content="{Binding}" />
+                        <ContentPresenter Content="{Binding Control}" >
+                            
+                        </ContentPresenter>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
