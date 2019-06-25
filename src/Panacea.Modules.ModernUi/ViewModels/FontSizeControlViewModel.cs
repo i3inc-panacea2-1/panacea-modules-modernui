@@ -1,4 +1,5 @@
-﻿using Panacea.Modules.ModernUi.Views;
+﻿using Panacea.Modularity.UiManager;
+using Panacea.Modules.ModernUi.Views;
 using Panacea.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Panacea.Modules.ModernUi.ViewModels
 {
     [View(typeof(FontSizeSettingsControl))]
-    class FontSizeControlViewModel:ViewModelBase
+    class FontSizeControlViewModel: SettingsControlViewModelBase
     {
         int _ratio;
         public int Ratio

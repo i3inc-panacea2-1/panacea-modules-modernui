@@ -26,6 +26,12 @@ namespace TestApp
             InitializeComponent();
             var w = new ModernThemeManager(null, null);
             Content = w;
+            PreviewKeyDown += MainWindow_PreviewKeyDown;
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

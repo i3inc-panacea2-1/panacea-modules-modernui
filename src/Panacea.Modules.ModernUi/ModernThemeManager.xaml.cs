@@ -66,6 +66,14 @@ namespace Panacea.Modules.ModernUi
 
             popup = new NotificationsWindow();
             _translator = new Translator("core");
+            _fontSizeControl = new FontSizeControlViewModel()
+            {
+                Ratio = 100
+            };
+
+            _fontSizeControl.PropertyChanged += Settings_PropertyChanged;
+            
+            AddSettingsControl(_fontSizeControl);
         }
 
         private bool IsCharmsOpen()
@@ -154,14 +162,12 @@ namespace Panacea.Modules.ModernUi
         {
             base.GoHome();
             ShowOrHideBackButton();
-            ShowOrHideKeyboardButton();
         }
 
         public override void GoBack(int count = 1)
         {
             base.GoBack(count);
             ShowOrHideBackButton();
-            ShowOrHideKeyboardButton();
         }
 
         public override void Navigate(ViewModelBase page, bool cache = true)
@@ -175,7 +181,6 @@ namespace Panacea.Modules.ModernUi
             CurrentView = view;
             base.Navigate(page, cache);
             ShowOrHideBackButton();
-            ShowOrHideKeyboardButton();
         }
 
         #region navigation methods
@@ -197,28 +202,7 @@ namespace Panacea.Modules.ModernUi
             }
         }
 
-        private void ShowOrHideKeyboardButton()
-        {
-            //imgKeyboard.Visibility = (CurrentPage is IDoesNotAcceptKeyboard) ? Visibility.Hidden : Visibility.Visible;
-        }
-
         #endregion navigation methods
-
-
-        private void OnToggleKeyboardClicked(object sender, RoutedEventArgs e)
-        {
-            /*
-            if(WindowStatus == PanaceaWindowStatus.Normal)
-            {
-                if (Resources["KeyboardBarHeight"].ToString() == "0")
-                    ShowKeyboard();
-                else HideKeyboard();
-            }else
-            {
-                HostWindow.ShowOnScreenKeyboard();
-            }
-            */
-        }
 
         private void homeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -262,15 +246,8 @@ namespace Panacea.Modules.ModernUi
         FontSizeControlViewModel _fontSizeControl;
         private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _fontSizeControl = new FontSizeControlViewModel()
-            {
-                Ratio = 100
-            };
-            
-            _fontSizeControl.PropertyChanged += Settings_PropertyChanged;
-            ResizeFonts();
-            AddSettingsControl(_fontSizeControl);
 
+            ResizeFonts();
             var window = Window.GetWindow(this);
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
@@ -584,21 +561,29 @@ namespace Panacea.Modules.ModernUi
             }
         }
 
-        public void AddSettingsControl(ViewModelBase c)
+        public void AddSettingsControl(SettingsControlViewModelBase c)
         {
+            c.Close += C_Close;
             _settingsControls.Add(c.View);
         }
 
-        public void RemoveSettingsControl(ViewModelBase c)
+        private void C_Close(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            HidePopup(_ch);
+        }
+
+        public void RemoveSettingsControl(SettingsControlViewModelBase c)
+        {
+            c.Close -= C_Close;
+            _settingsControls.Remove(c.View);
         }
 
         List<UIElement> _settingsControls = new List<UIElement>();
+        CharmsBarViewModel _ch;
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            var ch = new CharmsBarViewModel(_settingsControls);
-            await ShowPopup(ch);
+            _ch = new CharmsBarViewModel(_settingsControls);
+            await ShowPopup(_ch);
         }
     }
 }
