@@ -13,6 +13,7 @@ using Panacea.Modules.ModernUi.Models;
 using Panacea.Mvvm;
 using Panacea.Modules.ModernUi.ViewModels;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -21,6 +22,10 @@ namespace Panacea.Modules.ModernUi
     /// </summary>
     public partial class ModernThemeManager : NavigatorBase, IUiManager
     {
+
+        public new event KeyEventHandler PreviewKeyDown;
+        public new event KeyEventHandler PreviewKeyUp;
+
         public FrameworkElement CurrentView
         {
             get { return (FrameworkElement)GetValue(CurrentViewProperty); }
@@ -179,7 +184,10 @@ namespace Panacea.Modules.ModernUi
             }
             var view = page.View;
             CurrentView = view;
+            
             base.Navigate(page, cache);
+            CurrentView.Focus();
+            System.Windows.Input.Keyboard.Focus(CurrentView);
             ShowOrHideBackButton();
         }
 
@@ -249,6 +257,8 @@ namespace Panacea.Modules.ModernUi
 
             ResizeFonts();
             var window = Window.GetWindow(this);
+            window.PreviewKeyDown += Window_PreviewKeyDown;
+            window.PreviewKeyUp += Window_PreviewKeyUp;
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
 
@@ -261,6 +271,16 @@ namespace Panacea.Modules.ModernUi
                 _history.RemoveAt(0);
                 _history.Insert(0, _mainPage);
             }
+        }
+
+        private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            PreviewKeyUp?.Invoke(this, e);
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            PreviewKeyDown?.Invoke(this, e);
         }
 
         private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
