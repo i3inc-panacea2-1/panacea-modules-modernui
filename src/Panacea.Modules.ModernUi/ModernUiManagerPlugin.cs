@@ -20,19 +20,29 @@ namespace Panacea.Modules.ModernUi
         private readonly PanaceaServices _core;
         IThemeSettingsService _themesService;
         GetThemesResponse _settings;
+        List<ResourceDictionary> _resources = new List<ResourceDictionary>();
         public ModernUiManagerPlugin(PanaceaServices core)
         {
             _core = core;
             _themesService = new HttpThemeSettingsService(core.HttpClient);
             CacheImage.ImageUrlChanged += CacheImage_ImageUrlChanged;
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            _resources.Add(new ResourceDictionary()
             {
                 Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml", UriKind.Absolute)
             });
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            _resources.Add(new ResourceDictionary()
             {
                 Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml", UriKind.Absolute)
             });
+            _resources.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml", UriKind.Absolute)
+            });
+            foreach (var res in _resources)
+            {
+                Application.Current.Resources.MergedDictionaries.Add(res);
+            }
+
             //
         }
 
@@ -74,6 +84,10 @@ namespace Panacea.Modules.ModernUi
 
         public Task Shutdown()
         {
+            foreach (var res in _resources)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(res);
+            }
             return Task.CompletedTask;
         }
 

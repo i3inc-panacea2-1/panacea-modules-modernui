@@ -14,16 +14,13 @@
     d:DesignWidth="1366"
     pcontrols:RippleEffectDecorator.HighlightBackground="#55ffffff"
     Loaded="ThemeManager_OnLoaded"
+    SizeChanged="NavigatorBase_SizeChanged"
     TextElement.FontSize="{DynamicResource FontSize-Normal}"
     Unloaded="ThemeManager_OnUnloaded"
-    mc:Ignorable="d"
-    SizeChanged="NavigatorBase_SizeChanged">
+    mc:Ignorable="d">
     <thememanagers:NavigatorBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="pack://application:,,,/Panacea.Modules.ModernUi;component/Styles/Shared.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Style BasedOn="{StaticResource {x:Type ScrollBar}}" TargetType="pcontrols:BindableScrollBar" />
             <Style TargetType="pcontrols:ImageButton">
                 <Setter Property="Foreground" Value="White" />

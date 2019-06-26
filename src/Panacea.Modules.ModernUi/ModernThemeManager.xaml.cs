@@ -244,7 +244,7 @@ namespace Panacea.Modules.ModernUi
             var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0) * _ratio;
             foreach (var name in _fontSizes)
             {
-                Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
+                Application.Current.Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
             }
         }
 
@@ -308,14 +308,7 @@ namespace Panacea.Modules.ModernUi
 
         private void ThemeManager_OnUnloaded(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml", UriKind.Absolute)
-            });
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml", UriKind.Absolute)
-            });
+           
             //todo ServerCommunicator.TaskStarted -= ServerCommunicatorOnTaskStarted;
             //todo ServerCommunicator.TaskCompleted -= ServerCommunicatorOnTaskCompleted; 
             Navigate(null);
@@ -337,7 +330,6 @@ namespace Panacea.Modules.ModernUi
                     ((Border)element.View.Parent).Child = null; //.Clear();
                 }
                 var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
-                modal.Resources = Resources;
                 modal.Closed += (oo, ee) => element.Close();
                 modal.PopupContent = element.View;
                 element.Closable = closable;
