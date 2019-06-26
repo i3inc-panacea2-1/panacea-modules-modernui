@@ -241,7 +241,7 @@ namespace Panacea.Modules.ModernUi
 
         void ResizeFonts()
         {
-            var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0) * _ratio;
+            var ratio = ActualHeight / (1150) * _ratio;
             foreach (var name in _fontSizes)
             {
                 Application.Current.Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
