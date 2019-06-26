@@ -25,6 +25,15 @@ namespace Panacea.Modules.ModernUi
             _core = core;
             _themesService = new HttpThemeSettingsService(core.HttpClient);
             CacheImage.ImageUrlChanged += CacheImage_ImageUrlChanged;
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml", UriKind.Absolute)
+            });
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml", UriKind.Absolute)
+            });
+            //
         }
 
         public async Task BeginInit()

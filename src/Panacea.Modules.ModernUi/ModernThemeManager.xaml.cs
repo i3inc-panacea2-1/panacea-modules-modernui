@@ -186,8 +186,6 @@ namespace Panacea.Modules.ModernUi
             CurrentView = view;
             
             base.Navigate(page, cache);
-            CurrentView.Focus();
-            System.Windows.Input.Keyboard.Focus(CurrentView);
             ShowOrHideBackButton();
         }
 
@@ -246,8 +244,8 @@ namespace Panacea.Modules.ModernUi
             var ratio = (ActualHeight * ActualWidth) / (1800 * 900.0) * _ratio;
             foreach (var name in _fontSizes)
             {
-                Resources[name] = (double)Resources["Original" + name] * ratio;
-                Debug.WriteLine(name + " " + Resources[name]);
+                Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
+                Debug.WriteLine(name + " " + Application.Current.Resources[name]);
             }
         }
 
@@ -259,6 +257,7 @@ namespace Panacea.Modules.ModernUi
             var window = Window.GetWindow(this);
             window.PreviewKeyDown += Window_PreviewKeyDown;
             window.PreviewKeyUp += Window_PreviewKeyUp;
+            window.PreviewMouseDown += Window_PreviewMouseDown;
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
 
@@ -271,6 +270,14 @@ namespace Panacea.Modules.ModernUi
                 _history.RemoveAt(0);
                 _history.Insert(0, _mainPage);
             }
+        }
+
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
+            // Kill keyboard focus
+            Keyboard.ClearFocus();
         }
 
         private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -292,56 +299,12 @@ namespace Panacea.Modules.ModernUi
         private bool _keyboardOpen = false;
         public void ShowKeyboard(KeyboardTypes keyboardType = KeyboardTypes.Normal)
         {
-            _keyboardOpen = true;
-            if (keyboardType == KeyboardTypes.Normal)
-            {
-                normalKeyboardGrid.Visibility = Visibility.Visible;
-                numericKeyboardGrid.Visibility = Visibility.Collapsed;
-                dateKeyboardGrid.Visibility = Visibility.Collapsed;
-            }
-            else if (KeyboardTypes.Numeric == keyboardType || KeyboardTypes.Pin == keyboardType)
-            {
-                normalKeyboardGrid.Visibility = Visibility.Collapsed;
-                numericKeyboardGrid.Visibility = Visibility.Visible;
-                dateKeyboardGrid.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                normalKeyboardGrid.Visibility = Visibility.Collapsed;
-                numericKeyboardGrid.Visibility = Visibility.Collapsed;
-                dateKeyboardGrid.Visibility = Visibility.Visible;
 
-            }
-            double percentage = .38;
-            if (keyboardRow.Height.Value != 0.0) return;
-            normalKeyboardGrid.Height = ActualHeight * percentage;
-            //if (!(CurrentPage is IDoesNotAcceptKeyboard))
-            {
-                keyboardRow.Height = new GridLength(ActualHeight * percentage, GridUnitType.Pixel);
-
-                Resources["KeyboardBarHeight"] = new GridLength(ActualHeight * percentage,
-                    GridUnitType.Pixel);
-            }
         }
 
         public void HideKeyboard()
         {
-            _keyboardOpen = false;
-            if (keyboardRow.Height.Value == 0) return;
-            Task.Run(async () =>
-            {
-                await Task.Delay(150);
-                await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    if (_keyboardOpen) return;
-                    keyboardRow.Height = new GridLength(0);
-                    if (Application.Current != null)
-                        Resources["KeyboardBarHeight"] = new GridLength(0);
-                    normalKeyboardGrid.Visibility = Visibility.Collapsed;
-                    numericKeyboardGrid.Visibility = Visibility.Collapsed;
-                    dateKeyboardGrid.Visibility = Visibility.Collapsed;
-                }));
-            });
+
         }
 
         private void ThemeManager_OnUnloaded(object sender, RoutedEventArgs e)
