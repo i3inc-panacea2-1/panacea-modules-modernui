@@ -16,7 +16,8 @@
     Loaded="ThemeManager_OnLoaded"
     TextElement.FontSize="{DynamicResource FontSize-Normal}"
     Unloaded="ThemeManager_OnUnloaded"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    SizeChanged="NavigatorBase_SizeChanged">
     <thememanagers:NavigatorBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

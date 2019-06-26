@@ -245,7 +245,6 @@ namespace Panacea.Modules.ModernUi
             foreach (var name in _fontSizes)
             {
                 Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
-                Debug.WriteLine(name + " " + Application.Current.Resources[name]);
             }
         }
 
@@ -253,7 +252,7 @@ namespace Panacea.Modules.ModernUi
         private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            ResizeFonts();
+            
             var window = Window.GetWindow(this);
             window.PreviewKeyDown += Window_PreviewKeyDown;
             window.PreviewKeyUp += Window_PreviewKeyUp;
@@ -309,6 +308,14 @@ namespace Panacea.Modules.ModernUi
 
         private void ThemeManager_OnUnloaded(object sender, RoutedEventArgs e)
         {
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Colors/Default.xaml", UriKind.Absolute)
+            });
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Panacea.Controls;component/Styles/Default.xaml", UriKind.Absolute)
+            });
             //todo ServerCommunicator.TaskStarted -= ServerCommunicatorOnTaskStarted;
             //todo ServerCommunicator.TaskCompleted -= ServerCommunicatorOnTaskCompleted; 
             Navigate(null);
@@ -567,6 +574,11 @@ namespace Panacea.Modules.ModernUi
         {
             _ch = new CharmsBarViewModel(_settingsControls);
             await ShowPopup(_ch);
+        }
+
+        private void NavigatorBase_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ResizeFonts();
         }
     }
 }
