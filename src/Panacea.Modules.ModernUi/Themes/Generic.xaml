@@ -94,7 +94,7 @@
                                             Margin="6,2"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Bottom"
-                                            FontSize="{DynamicResource FontSize-X-Large}"
+                                            FontSize="{DynamicResource FontSize-Large}"
                                             FontWeight="Light"
                                             Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ModernTile}}, Path=Plugin.TextFillBrush}"
                                             IsHitTestVisible="True"

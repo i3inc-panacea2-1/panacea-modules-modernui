@@ -24,6 +24,12 @@ namespace Panacea.Modules.ModernUi
             {
                 WindowState = WindowState.Maximized;
                 WindowStyle = WindowStyle.None;
+                ResizeMode = ResizeMode.NoResize;
+            }
+            else
+            {
+                Width = 1366;
+                Height = 768;
             }
         }
         protected override void OnManipulationBoundaryFeedback(ManipulationBoundaryFeedbackEventArgs e)
