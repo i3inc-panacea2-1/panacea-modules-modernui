@@ -10,6 +10,7 @@ using Panacea.Modules.ModernUi.Models;
 using Panacea.Multilinguality;
 using System.Windows;
 using Panacea.Modules.ModernUi.Views;
+using System.Collections.ObjectModel;
 
 namespace Panacea.Modules.ModernUi.ViewModels
 {
@@ -30,8 +31,11 @@ namespace Panacea.Modules.ModernUi.ViewModels
             }
         }
 
+        public ObservableCollection<ViewModelBase> TopBarControls { get; }
+
         public MainPageViewModel(PanaceaServices core, Theme theme)
         {
+            TopBarControls = new ObservableCollection<ViewModelBase>();
             _core = core;
             _theme = theme;
             _core.PluginLoader.PluginLoaded += PluginLoader_PluginLoaded;

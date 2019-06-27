@@ -23,12 +23,29 @@
         <Image Source="pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/background_final.png" Stretch="UniformToFill" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="15*" />
+                <RowDefinition Height="2.2*" />
+                <RowDefinition Height="14*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <DockPanel LastChildFill="False" />
-
+           
+            <ItemsControl ItemsSource="{Binding TopBarControls}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel  LastChildFill="False" Margin="32 10 32 10"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding View}" DockPanel.Dock="{Binding Source=View, Path=(DockPanel.Dock)}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="DockPanel.Dock" Value="{Binding View.(DockPanel.Dock)}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+            
             <Grid Grid.Row="1">
                 <ScrollViewer
                     Name="scroll"
@@ -41,7 +58,8 @@
                     <ItemsControl
                         Name="TilesControl"
                         Background="Transparent"
-                        ItemsSource="{Binding Theme.Groups}">
+                        ItemsSource="{Binding Theme.Groups}"
+                        HorizontalAlignment="Center">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel
@@ -61,7 +79,7 @@
                                         Margin="4,0,0,5"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
-                                        FontSize="{DynamicResource FontSize-Xxx-Large}"
+                                        FontSize="{DynamicResource FontSize-X-Large}"
                                         Foreground="{DynamicResource MainPage.TileGroup.Header.ForegroundColor}"
                                         IsHitTestVisible="True"
                                         Text="{Binding Name}"

@@ -66,19 +66,11 @@ namespace Panacea.Modules.ModernUi
         {
             _core = core;
             _mainPage = new MainPageViewModel(_core, theme);
-
             InitializeComponent();
 
             popup = new NotificationsWindow();
             _translator = new Translator("core");
-            _fontSizeControl = new FontSizeControlViewModel()
-            {
-                Ratio = 100
-            };
 
-            _fontSizeControl.PropertyChanged += Settings_PropertyChanged;
-            
-            AddSettingsControl(_fontSizeControl);
         }
 
         private bool IsCharmsOpen()
@@ -519,12 +511,12 @@ namespace Panacea.Modules.ModernUi
 
         public void AddMainPageControl(ViewModelBase c)
         {
-            throw new NotImplementedException();
+            _mainPage.TopBarControls.Add(c);
         }
 
         public void RemoveMainPageControl(ViewModelBase c)
         {
-            throw new NotImplementedException();
+            _mainPage.TopBarControls.Remove(c);
         }
 
         public void AddNavigationBarControl(ViewModelBase c)
