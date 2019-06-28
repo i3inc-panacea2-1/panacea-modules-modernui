@@ -14,6 +14,7 @@ using Panacea.Mvvm;
 using Panacea.Modules.ModernUi.ViewModels;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -260,6 +261,18 @@ namespace Panacea.Modules.ModernUi
             {
                 _history.RemoveAt(0);
                 _history.Insert(0, _mainPage);
+            }
+            _fontSizeControl = new FontSizeControlViewModel();
+            _fontSizeControl.PropertyChanged += _fontSizeControl_PropertyChanged;
+            AddNavigationBarControl(_fontSizeControl);
+        }
+
+        private void _fontSizeControl_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(FontSizeControlViewModel.Ratio))
+            {
+                _ratio = _fontSizeControl.Ratio/ 100f;
+                ResizeFonts();
             }
         }
 

@@ -10,53 +10,60 @@
     xmlns:modern="clr-namespace:Panacea.Modules.ModernUi"
     xmlns:multilinguality="clr-namespace:Panacea.Multilinguality;assembly=Panacea.Multilinguality"
     xmlns:pcontrols="clr-namespace:Panacea.Controls;assembly=Panacea.Controls"
+    xmlns:viewmodels="clr-namespace:Panacea.Modules.ModernUi.Views"
     Name="MainPageUc"
     d:DesignHeight="500"
     d:DesignWidth="700"
-    mc:Ignorable="d"
-    DockPanel.ZIndex="0">
+    DockPanel.Dock="Right"
+    DockPanel.ZIndex="0"
+    mc:Ignorable="d">
+    <UserControl.Resources>
 
-    <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Padding="5,1"
-                FontSize="{DynamicResource FontSize-Normal}"
-                Foreground="white"
-                Text="{multilinguality:Translate 'Text Size',
-                                                 'ModernUi'}" />
-            <TextBlock
-                Grid.Column="1"
-                Margin="20,0,0,0"
-                Padding="5,1"
-                FontSize="{DynamicResource FontSize-Normal}"
-                Foreground="white"
-                Text="{Binding Ratio}" />
-            <TextBlock
-                Grid.Column="2"
-                Margin="0,0,0,0"
-                Padding="5,1"
-                FontSize="{DynamicResource FontSize-Normal}"
-                Foreground="white"
-                Text="%" />
-        </Grid>
+        <viewmodels:HeightConverter2 x:Key="HeightConverter2" />
+    </UserControl.Resources>
+    <pcontrols:ImageButton
+        Name="TextButton"
+        pcontrols:Material.Icon="format_size"
+        Command="{Binding ClickCommand}"
+        Foreground="White"
+        Text="{multilinguality:Translate 'Text size',
+                                         'ModernUi'}"
+        TextVisibility="Visible">
+        <Popup
+            Name="popup"
+            Width="{Binding ElementName=TextButton, Path=ActualWidth, Converter={StaticResource HeightConverter2}}"
+            IsOpen="{Binding PopupOpen}"
+            Placement="Custom"
+            StaysOpen="False">
 
-        <Slider
-            Grid.Row="1"
-            Margin="10"
-            VerticalAlignment="Center"
-            LargeChange=".2"
-            Maximum="130"
-            Minimum="70"
-            SmallChange=".1"
-            Value="{Binding Ratio}" />
-    </Grid>
+            <StackPanel>
+                <TextBlock
+                    Padding="5"
+                    FontSize="{DynamicResource FontSize-Xx-Large}"
+                    Foreground="White"
+                    TextAlignment="Center">
+                    <TextBlock.Inlines>
+                        <Run Text="{Binding Ratio}" />
+                        <Run FontSize="{DynamicResource FontSize-Normal}" Text="%" />
+                    </TextBlock.Inlines>
+                </TextBlock>
+                <UniformGrid Columns="1">
+                    <pcontrols:ImageButton
+                        pcontrols:Material.Icon="add"
+                        Command="{Binding IncreaseCommand}"
+                        Foreground="White"
+                        Text="{multilinguality:Translate 'Inc',
+                                                         'ModernUi'}"
+                        TextVisibility="Visible" />
+                    <pcontrols:ImageButton
+                        Padding="10"
+                        pcontrols:Material.Icon="remove"
+                        Command="{Binding DecreaseCommand}"
+                        Foreground="White"
+                        Text="{multilinguality:Translate 'Decr',
+                                                         'ModernUi'}" />
+                </UniformGrid>
+            </StackPanel>
+        </Popup>
+    </pcontrols:ImageButton>
 </UserControl>
