@@ -488,12 +488,6 @@ namespace Panacea.Modules.ModernUi
         public void Pause()
         {
             if (IsPaused) return;
-
-            //if (_audioManager != null)
-            //{
-            //    _pauseVolume = _audioManager.SpeakersVolume;
-            //    _audioManager.SpeakersVolume = 0;
-            //}
             IsPaused = true;
             Paused?.Invoke(this, EventArgs.Empty);
             popup.WindowState = WindowState.Minimized;
@@ -503,10 +497,6 @@ namespace Panacea.Modules.ModernUi
         public void Resume()
         {
             if (!IsPaused) return;
-            //if (_audioManager != null)
-            //{
-            //    _audioManager.SpeakersVolume = _pauseVolume;
-            //}
             IsPaused = false;
             Resumed?.Invoke(this, EventArgs.Empty);
             popup.WindowState = WindowState.Normal;

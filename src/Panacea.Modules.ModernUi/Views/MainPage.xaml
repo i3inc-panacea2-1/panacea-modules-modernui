@@ -23,15 +23,15 @@
         <Image Source="pack://application:,,,/Panacea.Modules.ModernUi;component/resources/images/background_final.png" Stretch="UniformToFill" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2.2*" />
+                <RowDefinition Height="2.0*" />
                 <RowDefinition Height="14*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-           
-            <ItemsControl ItemsSource="{Binding TopBarControls}">
+
+            <ItemsControl ItemsSource="{Binding TopBarControls}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <DockPanel  LastChildFill="False" Margin="32 10 32 10"/>
+                        <DockPanel  LastChildFill="False" Margin="33 5 33 5" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -63,19 +63,19 @@
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel
-                                    Margin="0,0,20,0"
+                                    Margin="0,0,0,0"
                                     VerticalAlignment="Stretch"
                                     Orientation="Horizontal" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="30,0,10,5" Visibility="{Binding Visibility}">
+                                <Grid Margin="20,0,20,0" Visibility="{Binding Visibility}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <TextBlock
+                                    <!--<TextBlock
                                         Margin="4,0,0,5"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
@@ -84,7 +84,7 @@
                                         IsHitTestVisible="True"
                                         Text="{Binding Name}"
                                         TextAlignment="Left"
-                                        Visibility="{Binding TextVisibility}" />
+                                        Visibility="{Binding TextVisibility}" />-->
                                     <ItemsControl
                                         x:Name="Container"
                                         Grid.Row="1"
@@ -134,13 +134,6 @@
                 </ScrollViewer>
             </Grid>
 
-            <pcontrols:BindableScrollBar
-                Name="scroll2"
-                Grid.Row="2"
-                Margin="10,0,10,0"
-                AutoHide="True"
-                BoundScrollViewer="{Binding ElementName=scroll}"
-                Orientation="Horizontal" />
         </Grid>
     </Grid>
 </UserControl>

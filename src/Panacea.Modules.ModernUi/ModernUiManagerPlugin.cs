@@ -50,6 +50,25 @@ namespace Panacea.Modules.ModernUi
         {
             _settings = await _themesService.GetThemeSettingsAsync();
             _manager = new ModernThemeManager(_core, _settings.Themes[0]);
+            _manager.Paused += _manager_Paused;
+            _manager.Resumed += _manager_Resumed;
+        }
+
+        private void _manager_Resumed(object sender, EventArgs e)
+        {
+            if(_window!= null)
+            {
+                _window.WindowState = _prevState;
+            }
+        }
+        WindowState _prevState;
+        private void _manager_Paused(object sender, EventArgs e)
+        {
+            if (_window != null)
+            {
+                _prevState = _window.WindowState;
+                _window.WindowState = WindowState.Minimized;
+            }
         }
 
         public void Dispose()
@@ -62,14 +81,14 @@ namespace Panacea.Modules.ModernUi
             _core.PluginLoader.LoadFinished += PluginLoader_LoadFinished;
             return Task.CompletedTask;
         }
-
+        ModernWindow _window;
         private void PluginLoader_LoadFinished(object sender, EventArgs e)
         {
             _core.PluginLoader.LoadFinished -= PluginLoader_LoadFinished;
-            var window = new ModernWindow();
-            window.Content = _manager;
-            window.Show();
-            window.Closed += Window_Closed;
+            _window = new ModernWindow();
+            _window.Content = _manager;
+            _window.Show();
+            _window.Closed += Window_Closed;
         }
 
         private void Window_Closed(object sender, EventArgs e)
