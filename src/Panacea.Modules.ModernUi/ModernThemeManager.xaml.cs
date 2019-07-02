@@ -249,7 +249,6 @@ namespace Panacea.Modules.ModernUi
             var window = Window.GetWindow(this);
             window.PreviewKeyDown += Window_PreviewKeyDown;
             window.PreviewKeyUp += Window_PreviewKeyUp;
-            window.PreviewMouseDown += Window_PreviewMouseDown;
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
 
@@ -274,14 +273,6 @@ namespace Panacea.Modules.ModernUi
                 _ratio = _fontSizeControl.Ratio/ 100f;
                 ResizeFonts();
             }
-        }
-
-        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
-            // Kill keyboard focus
-            Keyboard.ClearFocus();
         }
 
         private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
