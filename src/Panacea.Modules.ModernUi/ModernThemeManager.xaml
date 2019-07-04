@@ -81,26 +81,12 @@
                     VerticalAlignment="Stretch"
                     ImageUrl="{DynamicResource MainWindow.BackgroundImage}"
                     Stretch="UniformToFill" />
-                <Grid Name="mainGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Name="keyboardRow" Height="0" />
-                    </Grid.RowDefinitions>
-                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentView}" />
 
-                    <Grid
-                        Name="normalKeyboardGrid"
-                        Grid.Row="1"
-                        Background="#ff111111" />
-                    <Grid
-                        Name="numericKeyboardGrid"
-                        Grid.Row="1"
-                        Background="#ff111111" />
-                    <Grid
-                        Name="dateKeyboardGrid"
-                        Grid.Row="1"
-                        Background="#ff111111" />
-                </Grid>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentView}" />
+                </ScrollViewer>
+
             </Grid>
         </Grid>
         <Grid Name="HelperGrid" />
