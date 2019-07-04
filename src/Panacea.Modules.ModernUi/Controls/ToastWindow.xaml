@@ -10,10 +10,13 @@
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"
+    TextElement.FontSize="{DynamicResource FontSize-Normal}"
     Topmost="True"
-    WindowStyle="None"
-    TextElement.FontSize="{DynamicResource FontSize-Normal}">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10 10 10 30">
+    WindowStyle="None">
+    <Grid
+        Margin="10,10,10,30"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Bottom">
         <Grid>
             <Border Background="#f5f5f5" CornerRadius="3">
                 <Border.Effect>
@@ -29,7 +32,7 @@
                     <DataTemplate>
                         <TextBlock
                             Margin="20,10"
-                            FontSize="{DynamicResource FontSize-X-Large}"
+                            FontSize="{DynamicResource FontSize-Large}"
                             Foreground="Black"
                             Text="{Binding}"
                             TextAlignment="Center"
