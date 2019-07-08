@@ -15,6 +15,8 @@ using Panacea.Modules.ModernUi.ViewModels;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -312,6 +314,35 @@ namespace Panacea.Modules.ModernUi
 
         private Dictionary<ViewModelBase, ModalPopup> _popedElements = new Dictionary<ViewModelBase, ModalPopup>();
 
+
+        public static BitmapSource CaptureScreen(FrameworkElement target)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+            var bounds = target.RenderTransform.TransformBounds(new Rect(target.RenderSize));
+            if (bounds.Width == 0.0 || bounds.Height == 0.0)
+            {
+                bounds = VisualTreeHelper.GetDescendantBounds(target);
+            }
+
+            var rtb = new RenderTargetBitmap((int)(bounds.Width * 96.0 / 96.0),
+                                                            (int)(bounds.Height * 96.0 / 96.0),
+                                                            96.0,
+                                                            96.0,
+                                                            PixelFormats.Pbgra32);
+            var dv = new DrawingVisual();
+            using (var ctx = dv.RenderOpen())
+            {
+                var vb = new VisualBrush(target) { Stretch = Stretch.None };
+                ctx.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
+            }
+            rtb.Render(dv);
+            rtb.Freeze();
+            return rtb;
+        }
+
         public Task<TResult> ShowPopup<TResult>(
             PopupViewModelBase<TResult> element,
             string title = null,
@@ -325,7 +356,7 @@ namespace Panacea.Modules.ModernUi
                 {
                     ((Border)element.View.Parent).Child = null; //.Clear();
                 }
-                var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), null);
+                var modal = trasnparent ? new ModalPopup(Window.GetWindow(this)) : new ModalPopup(Window.GetWindow(this), CaptureScreen(this));
                 modal.Closed += (oo, ee) => element.Close();
                 modal.PopupContent = element.View;
                 element.Closable = closable;
