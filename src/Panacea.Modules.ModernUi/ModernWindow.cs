@@ -20,6 +20,7 @@ namespace Panacea.Modules.ModernUi
             //InkInputHelper.DisableWPFTabletSupport();
             //SetValue(InputMethod.IsInputMethodEnabledProperty, false);
             this.Loaded += MainWindow_Loaded;
+            Title = "Panacea";
             if (!Debugger.IsAttached)
             {
                 WindowState = WindowState.Maximized;

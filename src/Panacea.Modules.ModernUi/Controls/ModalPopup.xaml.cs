@@ -25,16 +25,16 @@ namespace Panacea.Modules.ModernUi.Controls
     /// </summary>
     public partial class ModalPopup : OverlayWindow
     {
-        public ModalPopup(Window window):base(window)
+        public ModalPopup(Window window) : base(window)
         {
             Transparency = true;
             InitializeComponent();
             DataContext = this;
         }
 
-        public ModalPopup(Window window, ImageSource source):this(window)
+        public ModalPopup(Window window, ImageSource source) : this(window)
         {
-            if(source.CanFreeze)
+            if (source.CanFreeze)
                 source.Freeze();
             Transparency = false;
             AllowsTransparency = false;
@@ -56,7 +56,7 @@ namespace Panacea.Modules.ModernUi.Controls
             {
                 foreach (Delegate d in Closed?.GetInvocationList())
                 {
-                    Closed -= (EventHandler) d;
+                    Closed -= (EventHandler)d;
                 }
             }
             base.OnClosed(e);
@@ -68,11 +68,11 @@ namespace Panacea.Modules.ModernUi.Controls
         }
 
         public static readonly DependencyProperty TransparencyProperty = DependencyProperty.Register(
-            "Transparency", typeof (bool), typeof (ModalPopup), new PropertyMetadata(default(bool)));
+            "Transparency", typeof(bool), typeof(ModalPopup), new PropertyMetadata(default(bool)));
 
         public bool Transparency
         {
-            get { return (bool) GetValue(TransparencyProperty); }
+            get { return (bool)GetValue(TransparencyProperty); }
             set { SetValue(TransparencyProperty, value); }
         }
 
@@ -137,7 +137,7 @@ namespace Panacea.Modules.ModernUi.Controls
             get { return (PopupType)GetValue(PopupTypeProperty); }
             set { SetValue(PopupTypeProperty, value); }
         }
-        
+
         protected void OnClickedOutside()
         {
             Closed?.Invoke(this, EventArgs.Empty);
@@ -145,6 +145,7 @@ namespace Panacea.Modules.ModernUi.Controls
 
         private void ModalPopup_OnLoaded(object sender, RoutedEventArgs e)
         {
+            Activate();
             if (!AllowsTransparency)
                 return;
 
