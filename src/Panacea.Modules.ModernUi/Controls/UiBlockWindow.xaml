@@ -11,6 +11,7 @@
     AllowsTransparency="True"
     Background="#88000000"
     ResizeMode="NoResize"
+    ShowActivated="False"
     WindowStyle="None"
     mc:Ignorable="d">
     <controls:OverlayWindow.Resources>

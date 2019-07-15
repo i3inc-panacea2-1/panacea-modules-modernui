@@ -253,7 +253,7 @@ namespace Panacea.Modules.ModernUi
             window.PreviewKeyUp += Window_PreviewKeyUp;
             popup.Owner = window;
             _doingWork = new UiBlockWindow(window);
-
+            _doingWork.IsVisibleChanged += _doingWork_IsVisibleChanged;
             if (!_history.Any())
             {
                 Navigate(_mainPage, true);
@@ -266,6 +266,18 @@ namespace Panacea.Modules.ModernUi
             _fontSizeControl = new FontSizeControlViewModel();
             _fontSizeControl.PropertyChanged += _fontSizeControl_PropertyChanged;
             AddNavigationBarControl(_fontSizeControl);
+        }
+
+        private void _doingWork_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if((bool)e.NewValue == false)
+            {
+                var w = Window.GetWindow(this);
+                if(w!= null)
+                {
+                    w.Activate();
+                }
+            }
         }
 
         private void _fontSizeControl_PropertyChanged(object sender, PropertyChangedEventArgs e)
