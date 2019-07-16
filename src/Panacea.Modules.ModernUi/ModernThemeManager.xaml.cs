@@ -160,18 +160,21 @@ namespace Panacea.Modules.ModernUi
 
         public override void GoHome()
         {
+            if (IsNavigationDisabled) return;
             base.GoHome();
             ShowOrHideBackButton();
         }
 
         public override void GoBack(int count = 1)
         {
+            if (IsNavigationDisabled) return;
             base.GoBack(count);
             ShowOrHideBackButton();
         }
 
         public override void Navigate(ViewModelBase page, bool cache = true)
         {
+            if (IsNavigationDisabled) return;
             if (page == null)
             {
                 base.Navigate(null, false);
