@@ -42,7 +42,7 @@
             Background="{DynamicResource ColorInformation}"
             Click="Button_Click_1"
             Content="{multilinguality:Translate 'Dismiss',
-                                                'core'}"
+                                                'ModernUi'}"
             FontSize="{DynamicResource FontSize-Small}"
             Style="{DynamicResource PrimaryButton}" />
     </Grid>
