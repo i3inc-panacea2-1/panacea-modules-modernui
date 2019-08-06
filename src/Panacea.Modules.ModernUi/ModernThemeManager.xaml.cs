@@ -247,10 +247,12 @@ namespace Panacea.Modules.ModernUi
         }
 
         FontSizeControlViewModel _fontSizeControl;
+        bool _loaded = false;
         private void ThemeManager_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            
+            if (_loaded) return;
+            _loaded = true;
             var window = Window.GetWindow(this);
             window.PreviewKeyDown += Window_PreviewKeyDown;
             window.PreviewKeyUp += Window_PreviewKeyUp;
