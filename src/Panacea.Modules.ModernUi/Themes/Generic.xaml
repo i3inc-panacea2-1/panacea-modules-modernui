@@ -73,8 +73,8 @@
                                     <pcontrols:CacheImage
                                         Grid.Column="0"
                                         Margin="16,22,16,18"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
                                         ImageUrl="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ModernTile}}, Path=IconImage}"
                                         IsHitTestVisible="True"
                                         RenderOptions.BitmapScalingMode="Fant"
@@ -105,7 +105,7 @@
                                             Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ModernTile}}, Path=Plugin.HideText, Converter={StaticResource ToVisibilityConverter}}" />
                                         <pcontrols:CacheImage
                                             Grid.Column="1"
-                                            Height="{Binding ElementName=Text, Path=ActualHeight}"
+                                            MaxHeight="{Binding ElementName=Text, Path=ActualHeight}"
                                             Margin="3"
                                             VerticalAlignment="Bottom"
                                             ImageUrl="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ModernTile}}, Path=Decoration}"
