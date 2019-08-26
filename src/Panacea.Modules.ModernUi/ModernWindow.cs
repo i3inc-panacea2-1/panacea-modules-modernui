@@ -19,6 +19,8 @@ namespace Panacea.Modules.ModernUi
         {
             //InkInputHelper.DisableWPFTabletSupport();
             //SetValue(InputMethod.IsInputMethodEnabledProperty, false);
+            SnapsToDevicePixels = true;
+            this.UseLayoutRounding = true;
             this.Loaded += MainWindow_Loaded;
             Title = "Panacea";
             if (!Debugger.IsAttached)
