@@ -520,7 +520,8 @@ namespace Panacea.Modules.ModernUi
 
         public void Restart(string message, Exception exception = null)
         {
-            throw new NotImplementedException();
+            _core.Logger.Info(this, "Restart signal received: " + message);
+            Application.Current.Shutdown();
         }
 
         float _pauseVolume;
