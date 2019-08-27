@@ -65,7 +65,11 @@ namespace Panacea.Modules.ModernUi
         public virtual void Navigate(ViewModelBase page, bool cache = true)
         {
             if (page == null) return;
-            var args = new BeforeNavigateEventArgs();
+            var args = new BeforeNavigateEventArgs()
+            {
+                Page = CurrentPage,
+                NextPage = page
+            };
             BeforeNavigate?.Invoke(this, args);
             if (args.Cancel) return;
             if (cache) _history.Add(page);
