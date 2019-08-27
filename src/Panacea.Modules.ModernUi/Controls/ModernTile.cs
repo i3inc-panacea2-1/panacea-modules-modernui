@@ -248,6 +248,14 @@ namespace Panacea.Modules.ModernUi.Controls
             {
                 frame++;
                 if (frame > InternalFrames.Count - 1) frame = 0;
+                if (frame != 0)
+                {
+                    _dTimer.Interval = TimeSpan.FromMilliseconds(Frames[frame - 1].Interval);
+                }
+                else
+                {
+                    _dTimer.Interval = TimeSpan.FromMilliseconds(Plugin.Interval);
+                }
                 try
                 {
                     Dispatcher.Invoke(() => { CurrentFrame = InternalFrames[frame]; });
