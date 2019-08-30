@@ -50,6 +50,7 @@ namespace Panacea.Modules.ModernUi.Controls
                 CheckNotificationsCount();
                 del?.Invoke();
             });
+            it.Dismiss+=(oo,ee)=> Remove(it);
             if (!priority)
                 controls.Children.Add(it);
             else controls.Children.Insert(0, it);
