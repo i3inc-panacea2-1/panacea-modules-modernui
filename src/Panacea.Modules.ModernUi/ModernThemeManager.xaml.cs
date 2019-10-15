@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Threading;
 
 namespace Panacea.Modules.ModernUi
 {
@@ -239,7 +240,8 @@ namespace Panacea.Modules.ModernUi
 
         void ResizeFonts()
         {
-            var ratio = ActualHeight / (1150) * _ratio;
+            var scr = System.Windows.Forms.Screen.PrimaryScreen;
+            var ratio = ((double)scr.Bounds.Height* (double)scr.Bounds.Width) / (2100 * 1350.0) * _ratio;
             foreach (var name in _fontSizes)
             {
                 Application.Current.Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
@@ -253,6 +255,7 @@ namespace Panacea.Modules.ModernUi
 
             if (_loaded) return;
             _loaded = true;
+            ResizeFonts();
             var window = Window.GetWindow(this);
             window.PreviewKeyDown += Window_PreviewKeyDown;
             window.PreviewKeyUp += Window_PreviewKeyUp;
@@ -603,9 +606,6 @@ namespace Panacea.Modules.ModernUi
             await ShowPopup(_ch);
         }
 
-        private void NavigatorBase_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            ResizeFonts();
-        }
+        
     }
 }

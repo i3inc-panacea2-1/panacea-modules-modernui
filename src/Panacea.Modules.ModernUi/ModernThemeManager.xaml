@@ -14,7 +14,6 @@
     d:DesignWidth="1366"
     pcontrols:RippleEffectDecorator.HighlightBackground="#55ffffff"
     Loaded="ThemeManager_OnLoaded"
-    SizeChanged="NavigatorBase_SizeChanged"
     TextElement.FontSize="{DynamicResource FontSize-Normal}"
     Unloaded="ThemeManager_OnUnloaded"
     mc:Ignorable="d">
