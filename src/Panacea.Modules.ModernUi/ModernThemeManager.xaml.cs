@@ -542,7 +542,7 @@ namespace Panacea.Modules.ModernUi
             if (!IsPaused) return;
             IsPaused = false;
             Resumed?.Invoke(this, EventArgs.Empty);
-            popup.WindowState = WindowState.Normal;
+            popup.WindowState = WindowState.Maximized;
         }
 
         public void RemoveToolButton(object button)
