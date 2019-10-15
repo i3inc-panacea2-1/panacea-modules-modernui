@@ -31,7 +31,7 @@
         <Grid Name="MainGrid" Background="{DynamicResource MainWindow.Background}">
             <Grid.RowDefinitions>
 
-                <RowDefinition Name="rightBar" Height="8*" />
+                <RowDefinition Name="rightBar" Height="9*" />
                 <RowDefinition Name="leftBar" Height="1*" />
             </Grid.RowDefinitions>
 
