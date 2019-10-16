@@ -241,7 +241,7 @@ namespace Panacea.Modules.ModernUi
         void ResizeFonts()
         {
             var scr = System.Windows.Forms.Screen.PrimaryScreen;
-            var ratio = ((double)scr.Bounds.Height* (double)scr.Bounds.Width) / (2100 * 1350.0) * _ratio;
+            var ratio = ((double)scr.Bounds.Height* (double)scr.Bounds.Width) / (2000 * 1300.0) * _ratio;
             foreach (var name in _fontSizes)
             {
                 Application.Current.Resources[name] = (double)Application.Current.Resources["Original" + name] * ratio;
