@@ -27,16 +27,25 @@
             </Style>
         </ResourceDictionary>
     </thememanagers:NavigatorBase.Resources>
-    <Grid>
-        <Grid Name="MainGrid" Background="{DynamicResource MainWindow.Background}">
+    <Grid Background="{DynamicResource MainWindow.Background}">
+        <pcontrols:CacheImage
+                    Name="background"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ImageUrl="{DynamicResource MainWindow.BackgroundImage}"
+                    Stretch="UniformToFill" />
+
+        <Grid Name="MainGrid" >
             <Grid.RowDefinitions>
 
                 <RowDefinition Name="rightBar" Height="9*" />
                 <RowDefinition Name="leftBar" Height="1*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Background="{DynamicResource MainWindow.NavigationBar.Background}">
-
+            <Grid Grid.Row="1" Background="{x:Null}" x:Name="BottomBar">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="0" Opacity=".7" Direction="0"/>
+                </Grid.Effect>
                 <DockPanel
                     Focusable="False"
                     Name="Buttons"
@@ -53,6 +62,7 @@
                             </Style.Setters>
                         </Style>
                     </DockPanel.Resources>
+                    
                     <pcontrols:ImageButton
                         x:Name="backButton"
                         Panel.ZIndex="9999999"
@@ -75,13 +85,7 @@
 
             </Grid>
             <Grid Name="rightBarGrid" Grid.Column="1">
-                <pcontrols:CacheImage
-                    Name="background"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    ImageUrl="{DynamicResource MainWindow.BackgroundImage}"
-                    Stretch="UniformToFill" />
-
+                
 
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                     <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=self:ModernThemeManager}, Path=CurrentView}" />

@@ -183,8 +183,16 @@ namespace Panacea.Modules.ModernUi
             }
             var view = page.View;
             CurrentView = view;
-            
+
             base.Navigate(page, cache);
+            if (page.View.GetType().GetCustomAttributes(typeof(TransparentBottomBarAttribute), true).Length > 0)
+            {
+                BottomBar.Background = null;
+            }
+            else
+            {
+                BottomBar.Background = Brushes.Black;
+            }
             ShowOrHideBackButton();
         }
 
@@ -277,10 +285,10 @@ namespace Panacea.Modules.ModernUi
 
         private void _doingWork_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if((bool)e.NewValue == false)
+            if ((bool)e.NewValue == false)
             {
                 var w = Window.GetWindow(this);
-                if(w!= null)
+                if (w != null)
                 {
                     w.Activate();
                 }
@@ -291,7 +299,7 @@ namespace Panacea.Modules.ModernUi
         {
             if (e.PropertyName == nameof(FontSizeControlViewModel.Ratio))
             {
-                _ratio = _fontSizeControl.Ratio/ 100f;
+                _ratio = _fontSizeControl.Ratio / 100f;
                 ResizeFonts();
             }
         }
@@ -325,7 +333,7 @@ namespace Panacea.Modules.ModernUi
 
         private void ThemeManager_OnUnloaded(object sender, RoutedEventArgs e)
         {
-           
+
             //todo ServerCommunicator.TaskStarted -= ServerCommunicatorOnTaskStarted;
             //todo ServerCommunicator.TaskCompleted -= ServerCommunicatorOnTaskCompleted; 
             Navigate(null);
@@ -605,6 +613,11 @@ namespace Panacea.Modules.ModernUi
             await ShowPopup(_ch);
         }
 
-        
+
+    }
+
+    public class TransparentBottomBarAttribute : Attribute
+    {
+
     }
 }

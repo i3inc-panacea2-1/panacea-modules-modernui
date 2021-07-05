@@ -2,6 +2,7 @@
 
 namespace Panacea.Modules.ModernUi.Views
 {
+    [TransparentBottomBar]
     /// <summary>
     ///     Interaction logic for MainPage.xaml
     /// </summary>
